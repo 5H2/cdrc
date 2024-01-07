@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>You are Elon Musk</title>
+    <title>Cdrc.lol</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap'); /* Importing the Jua font */
 
@@ -12,14 +12,26 @@
             margin: 0;
             padding: 0 0 50px 0;
         }
-        
+
         .balance {
             position: sticky;
             top: 0;
-            background: linear-gradient(#e069ad, #d4599e);
             padding: 10px;
             color: white;
             font-weight: bold;
+            animation: colorShift 15s infinite linear;
+        }
+
+        @keyframes colorShift {
+            0%, 100% { background-color: #d4597a; }
+            11% { background-color: #d48e59; }
+            22% { background-color: #d4ce59; }
+            33% { background-color: #86d459; }
+            44% { background-color: #59d480; }
+            55% { background-color: #59d0d4; }
+            66% { background-color: #5967d4; }
+            77% { background-color: #b559d4; }
+            88% { background-color: #d459ab; }
         }
 
         #items {
@@ -30,17 +42,20 @@
 
         .item {
             margin: 15px;
-            padding: 0; /* Removed padding */
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             cursor: pointer; /* Make it clickable */
             overflow: hidden; /* Ensures the image fits within the border radius */
+            width: 350px;
+            height: 100px;
+            transition: transform 0.3s;
         }
 
         .item img {
             width: 100%; /* Image takes full width of its container */
             height: auto; /* Height adjusts to maintain aspect ratio */
             display: block; /* Removes any extra space beneath the image */
+            transition: transform 0.3s;
         }
 
         .header-section {
@@ -49,26 +64,28 @@
             background-color: white;
         }
 
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #f4d188;
-            margin-bottom: 10px;
-        }
 
         .title {
             font-family: 'Jua', sans-serif;
-            color: #f4d188;
             font-size: 50px;
+            font-weight: bold;
+            color: #f4d188; /* Initial color */
+            animation: titleShift 20s infinite linear;
+        }
+
+        @keyframes titleShift {
+            0%, 100% { color: #f4d188; }
+            50% { color: #cb88f4; }
+        }
+
+        .title:hover, .profile-picture:hover, .item img:hover, .item:hover {
+            transform: scale(1.1); /* Scale up on hover */
         }
     </style>
 </head>
 <body>
 
 <div class="header-section">
-    <img src="https://i.pinimg.com/originals/71/98/ef/7198ef424ef24f8a64901d73805f8b29.jpg" class="profile-picture">
     <div class="title">Cdrc.lol</div>
 </div>
 
@@ -79,16 +96,17 @@
     const itemsContainer = document.getElementById('items');
 
     const items = [
-        { imgSrc: "you-are-elon-musk.png" },
+        { imgSrc: "you-are-elon-musk.png", link: 'you-are-elon-musk.html' },
+        { imgSrc: "another-image.png", link: 'another-page.html' },
         // Add more items here
     ];
 
     items.forEach(item => {
         const itemElement = document.createElement('div');
         itemElement.className = 'item';
-        itemElement.innerHTML = `<img src="${item.imgSrc}" alt="Item Image">`; // Only image, no text
+        itemElement.innerHTML = `<img src="${item.imgSrc}" alt="Item Image">`;
         itemElement.onclick = function() {
-            window.location.href = 'you-are-elon-musk.html'; // Link to the desired page
+            window.location.href = item.link; // Redirects to the specified link
         };
         itemsContainer.appendChild(itemElement);
     });
