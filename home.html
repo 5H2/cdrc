@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cdrc.lol</title>
+    <title>You are Elon Musk</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap'); /* Importing the Jua font */
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            background: linear-gradient(#f4f4f4, #d6d6d6);
+            background: #f4f4f4;
             margin: 0;
             padding: 0 0 50px 0;
         }
@@ -14,7 +16,7 @@
         .balance {
             position: sticky;
             top: 0;
-            background: linear-gradient(#43de7b, #32bf66);
+            background: linear-gradient(#e069ad, #d4599e);
             padding: 10px;
             color: white;
             font-weight: bold;
@@ -27,31 +29,18 @@
         }
 
         .item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 15px;
-            padding: 15px;
-            background: url('you-are-elon-musk.png') no-repeat center center;
-            background-size: cover;
+            padding: 0; /* Removed padding */
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: calc(32% - 30px);
-            height: 350px;
             cursor: pointer; /* Make it clickable */
+            overflow: hidden; /* Ensures the image fits within the border radius */
         }
 
         .item img {
-            width: 180px;
-            height: 180px;
-            margin-bottom: 10px;
-        }
-
-        .item-title {
-            font-size: 16px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: white; /* For visibility on the background */
+            width: 100%; /* Image takes full width of its container */
+            height: auto; /* Height adjusts to maintain aspect ratio */
+            display: block; /* Removes any extra space beneath the image */
         }
 
         .header-section {
@@ -65,45 +54,41 @@
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #29a657;
+            border: 3px solid #f4d188;
             margin-bottom: 10px;
         }
 
         .title {
-            width: 200px; /* Adjust the size as needed */
-            height: auto;
+            font-family: 'Jua', sans-serif;
+            color: #f4d188;
+            font-size: 50px;
         }
     </style>
 </head>
 <body>
 
 <div class="header-section">
-    <img src="https://i.pinimg.com/originals/71/98/ef/7198ef424ef24f8a64901d73805f8b29.jpg" alt="Profile Picture" class="profile-picture">
-    <img src="cdrc.png" alt="CDRC" class="title">
+    <img src="https://i.pinimg.com/originals/71/98/ef/7198ef424ef24f8a64901d73805f8b29.jpg" class="profile-picture">
+    <div class="title">Cdrc.lol</div>
 </div>
 
-<div class="balance"></div> <!-- Balance background retained, content removed -->
-<div id="items">
-    <!-- Items will be displayed here -->
-</div>
+<div class="balance"></div>
+<div id="items"></div>
 
 <script>
     const itemsContainer = document.getElementById('items');
 
     const items = [
-        { title: "Sheet of Paper", imgSrc: "https://static.vecteezy.com/system/resources/previews/013/089/850/original/a4-paper-with-shadow-png.png" },
+        { imgSrc: "you-are-elon-musk.png" },
         // Add more items here
     ];
 
     items.forEach(item => {
         const itemElement = document.createElement('div');
         itemElement.className = 'item';
-        itemElement.innerHTML = `
-            <img src="${item.imgSrc}" alt="${item.title}">
-            <div class="item-title">${item.title}</div>
-        `;
+        itemElement.innerHTML = `<img src="${item.imgSrc}" alt="Item Image">`; // Only image, no text
         itemElement.onclick = function() {
-            window.location.href = 'you-are-elon-musk.html';
+            window.location.href = 'you-are-elon-musk.html'; // Link to the desired page
         };
         itemsContainer.appendChild(itemElement);
     });
