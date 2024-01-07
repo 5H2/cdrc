@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Spree Game</title>
+    <title>You are Elon Musk</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sleek font */
@@ -11,6 +11,24 @@
             padding: 0px;
             margin-bottom: 50px;
         }
+        
+        
+#back-arrow {
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    text-decoration: none;
+    color: #32bf66;
+    transition: transform 0.2s ease;
+}
+
+#back-arrow:hover {
+    transform: scale(1.2);
+}
+
+.arrow-icon {
+    font-size: 45px;
+}
 
         .balance {
     position: sticky;
@@ -113,6 +131,11 @@
             border-radius: 4px;
             cursor: pointer;
             margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        
+        #orderButton:hover {
+            transform: scale(1.08); /* Scale up on hover */
         }
 
         .modal {
@@ -211,6 +234,9 @@
     <div class="title">You are Elon Musk</div>
 </div>
 
+    <a href="home.html" id="back-arrow">
+        <span class="arrow-icon">↜</span>
+    </a>
 
     <div class="balance">Balance: $<span id="balance">251,300,000,000</span></div>
     <div id="items">
