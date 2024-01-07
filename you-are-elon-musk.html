@@ -470,15 +470,21 @@
             orderModal.classList.add('active');
         });
 
-        function updateOrderSummary() {
-            let summary = `Congrats you spent $${formatNumber(totalSpent)} out of $${formatNumber(251300000000)}<br><br>You bought:<br>`;
-            for (const [title, quantity] of Object.entries(itemsPurchased)) {
-                if (quantity > 0) {
-                    summary += `- ${quantity}x ${title}<br>`;
-                }
+    function updateOrderSummary() {
+        let summary = `Congrats you spent $${formatNumber(totalSpent)} out of $${formatNumber(251300000000)}<br><br>You bought:<br>`;
+        let tweetContent = `I just spent $${formatNumber(totalSpent)} out of $251,300,000,000 on https://cdrc.lol and bought:\n\n`;
+        for (const [title, quantity] of Object.entries(itemsPurchased)) {
+            if (quantity > 0) {
+                summary += `- ${quantity}x ${title}<br>`;
+                tweetContent += `- ${quantity}x ${title}\n`;
             }
-            orderSummary.innerHTML = summary;
         }
+        orderSummary.innerHTML = summary;
+        document.getElementById('tweetOrder').onclick = () => {
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+            window.open(tweetUrl, '_blank');
+        };
+    }
     </script>
 </body>
 </html>
