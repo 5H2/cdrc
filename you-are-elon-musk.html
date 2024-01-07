@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Spree Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sleek font */
+            text-align: center;
+            background: linear-gradient(#f4f4f4, #d6d6d6); /* Gradient Background */
+            margin: 0;
+            padding: 0px;
+            margin-bottom: 50px;
+        }
+
+        .balance {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient( #43de7b, #32bf66); /* Gradient background */
+    padding: 10px;
+    z-index: 1000;
+    text-align: center; /* Align content to center */
+    color: white;
+    font-weight: bold;
+}
+
+
+        #items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            width: calc(32% - 30px); /* Adjust width for 3 items per row */
+            height: 350px;
+            transition: transform 0.3s; /* Transition for hover effect */
+        }
+
+        .item:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        .item img {
+            width: 180px; /* Increase image size */
+            height: 180px; /* Increase image size */
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+        
+        .item-title:hover {
+            transform: scale(1.1); /* Scale up on hover */
+        }
+        
+        .item-price:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+        
+        
+
+        .item-price {
+            font-size: 14px;
+            color: #73d865;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .item-quantity {
+            margin-top: 5px;
+        }
+        
+        .item-quantity button:hover {
+            transform: scale(1.08); /* Scale up on hover */
+        }
+
+        .item-quantity input, .item-quantity button {
+            width: 70px; /* Larger size */
+            padding: 10px; /* Larger size */
+            font-size: 16px; /* Larger size */
+            transition: transform 0.3s;
+        }
+
+        .item-quantity button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #orderButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 40px; /* Larger size */
+            font-size: 20px; /* Larger size */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 2;
+    width: 300px;
+}
+
+.modal.active {
+    display: block;
+}
+
+.close-modal {
+    cursor: pointer;
+    color: #888;
+    float: right;
+    font-size: 20px;
+}
+
+        .hover-text {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: calc(100% - 20px); /* Adjust width to fit within padding */
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden; /* Hide overflow */
+    max-height: 60px; /* Set maximum height */
+    transition: max-height 0.3s; /* Smooth transition for expanding */
+}
+
+        .item:hover .hover-text {
+    display: block;
+    max-height: 150px; /* Expand to show full text on hover */
+}
+
+        
+        .tweet-button {
+    background-color: #1DA1F2; /* Twitter Blue */
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.header-section {
+    text-align: center;
+    padding: 20px;
+    background-color: white; /* Or any color of your choice */
+}
+
+.profile-picture {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensures the image covers the area */
+    border: 3px solid #29a657; /* Optional: border color */
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.profile-picture:hover {
+            transform: scale(1.25); /* Scale up on hover */
+        }
+
+.title {
+    font-size: 24px;
+    color: #29a657; /* Title color */
+    transition: transform 0.3s;
+}
+
+.title:hover {
+            transform: scale(1.25); /* Scale up on hover */
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="header-section">
+    <img src="data:image/jpeg;base64,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" alt="Profile Picture" class="profile-picture">
+    <div class="title">You are Elon Musk</div>
+</div>
+
+
+    <div class="balance">Balance: $<span id="balance">251,300,000,000</span></div>
+    <div id="items">
+        <!-- Items will be added here -->
+    </div>
+    <button id="orderButton">Order</button>
+
+    <!-- Modal for displaying the order summary -->
+    <div id="orderModal" class="modal">
+        <span class="close-modal" onclick="document.getElementById('orderModal').classList.remove('active')">&times;</span>
+        <h2>Order Summary</h2>
+        <div id="orderSummary"></div>
+        <button class="tweet-button" id="tweetOrder">Tweet This!</button>
+    </div>
+
+    <script>
+        let balance = 251300000000;
+        let totalSpent = 0;
+        const itemsPurchased = {};
+
+        const balanceElement = document.getElementById('balance');
+        const itemsContainer = document.getElementById('items');
+        const orderModal = document.getElementById('orderModal');
+        const orderSummary = document.getElementById('orderSummary');
+
+        function formatNumber(num) {
+            return num.toLocaleString();
+        }
+
+        balanceElement.textContent = formatNumber(balance);
+
+        // Descriptions section
+        const descriptions = {
+    "Sheet of Paper": "A classic.",
+    "Pencil": "A simple pencil, ideal for drawing.",
+    "Burger": "A classic, and a necessity.",
+    "Big Mac": "The iconic Big Mac, with two beef patties, lettuce, cheese, pickles, and onions on a sesame seed bun.",
+    "Houseplant": "A beautiful houseplant that adds a touch of greenery to any space.",
+    "Book": "An engaging read that transports you to another world.",
+    "Pizza": "A circle of happiness, sliced for convenience.",
+    "Cigarettes": "A pack of cigarettes, what more could you need?",
+    "Steak Dinner": "A succulent steak cooked to perfection, paired with tasty side dishes.",
+    "1g of gold": "A small, but valuable piece of pure gold.",
+    "Amazon Echo Dot": "A little spy that plays music.",
+    "1 Year of Premium Netflix": '365 days of "just one more episode."',
+    "2nd. Gen Airpods Pro": "For when you want to ignore the world, but in style.",
+    "Game Console": "Buy this, and never do anything else again",
+    "Kei Truck": "The greatest vehicle money can buy.",
+    "Kitten": "meow",
+    "Puppy": "woof",
+    "Hot air balloon ride": "A must have.",
+    "iPhone 15 Pro Max": "The latest iPhone, now with more pixels than real life.",
+    "Designer Handbag": "Carry your essentials like a celebrity.",
+    "Acre of land": "Your personal piece of the planet.",
+    "Luxury Watch": "A sophisticated luxury watch, combining style with precision.",
+    "African Safari": "Hell Yeah.",
+    "Diamond Ring": "Symbolizing love and commitment.",
+    "Waterski": "Fun forever.",
+    "Luxury Jewelry": "Shiny things to distract people.",
+    "Car": "Your mobile throne on wheels.",
+    "Tesla Model 3": "Close your eyes and drive. WARNING: DO NOT DO THIS",
+    "Golden Fidget Spinner": "The greatest thing money can buy",
+    "1Kg of gold": "A small fortune, literally.",
+    "Robot Dog": "Create the army of your dreams.",
+    "Golden Bath Tub": "The first addition to your brand new gold bathroom.",
+    "Monster Truck": "The coolest car.",
+    "Ferrari": "Lamborghini better.",
+    "Lamborghini": "Ferrari better.",
+    "Jetpack": "Your very own personal jetpack, dodge traffic and arrive in style.",
+    "Single Family House": "Home sweet home.",
+    "Faberge Egg": "Like a normal egg, but more fragile.",
+    "Personal McDonalds": "Have a McFeast anytime.",
+    "30s Superbowl Ad": "Send a message to 108 million people. ",
+    "Golden Toilet": "The second addition to your brand new gold bathroom.",
+    "Tank": "Defend yourself from anything.",
+    "Penthouse": "Breathtaking views and luxurious amenities.",
+    "Formula 1 Car": "Why drive a normal car when you have billions.",
+    "Apache Helicopter": "Purchase a personal army.",
+    "Mansion": "A magnificent mansion, try not to get lost inside.",
+    "DaVinci's Notebook": "Inside the mind of the greatest man.",
+    "Bell Boeing V-22 Osprey": "Fly sideways, because why not?",
+    "Boeing 747-8i": "A private airline.",
+    "DaVinci Painting": "A private masterpiece.",
+    "Superyacht": "A floating mansion for the seas.",
+    "Mona Lisa": "Yes, the real mona lisa.",
+    "1g of Francium ": "Rare, unstable, and expensive.",
+    "B2 Bomber": "Now THIS is a private jet.",
+    "Personal Nuclear Submarine": "Probably the coolest vehicle money can buy.",
+    "NBA Team": "Because why not!",
+    "Personal Rocket Ship": "Now THIS is the coolest vehicle money can buy.",
+    "Nuclear Bomb": "WARNING: Not a firework.",
+    "Twitter": "Own the world's loudest megaphone.",
+    "1g of Antimatter": "15 zeroes, yes thats a quadrillion. 1,000,000,000,000,000",
+    "‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ Time‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ": "The one thing money can't buy..."
+};
+
+
+        const items = [
+            { title: "Sheet of Paper", price: 0.01, imgSrc: "https://static.vecteezy.com/system/resources/previews/013/089/850/original/a4-paper-with-shadow-png.png" },
+            { title: "Pencil", price: 0.5, imgSrc: "https://i.pinimg.com/originals/88/5c/68/885c6898a24ce99537b853a99182be2e.png" },
+            { title: "Burger", price: 1, imgSrc: "https://i.pinimg.com/originals/98/7c/79/987c799e3186217aa0a8e6f996a452a0.png" },
+            { title: "Big Mac", price: 2, imgSrc: "https://i.pinimg.com/originals/38/7a/0d/387a0d5aceb27c67f56309b06ea78f3b.png" },
+            { title: "Houseplant", price: 5, imgSrc: "https://images.homedepot.ca/productimages/p_1001585731.jpg?product-images=l" },
+            { title: "Book", price: 12, imgSrc: "https://images.platoyo.com/v7/_letzshop_production_img_/a79411eff2055fe758e314ebab516c5e.jpeg?q=75&width=1500&height=1500&func=bound&org_if_sml=1&force_format=webp%2Cjpeg" },
+            { title: "Pizza", price: 20, imgSrc: "https://static.vecteezy.com/system/resources/thumbnails/025/076/438/small/pizza-isolated-illustration-ai-generative-png.png" },
+            { title: "Cigarettes", price: 28, imgSrc: "https://atlas-content-cdn.pixelsquid.com/stock-images/closed-cigarettes-pack-marlboro-of-o0zxnX0-600.jpg" },
+            { title: "Steak Dinner", price: 40, imgSrc: "https://media.istockphoto.com/id/91519864/photo/steak-with-baked-potato.jpg?s=612x612&w=0&k=20&c=a0x5He6z3nJQ_FrbNIwjohJGmBPFjJ5tE0fc_vu1Hzg=" },
+            { title: "1g of gold", price: 70, imgSrc: "https://xau.ca/wp-content/uploads/2018/11/1g-Credit-Suisse-Gold-Bar-01.png" },
+           { title: "Amazon Echo Dot", price: 130, imgSrc: "https://m.media-amazon.com/images/I/51K4EqO12ML._AC_SY580_.jpg" },
+           { title: "1 Year of Premium Netflix", price: 252, imgSrc: "https://static.vecteezy.com/system/resources/previews/020/335/987/non_2x/netflix-logo-netflix-icon-free-free-vector.jpg" },
+           { title: "2nd. Gen Airpods Pro", price: 329, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/126/773/6000207126773.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" },
+           { title: "Game Console", price: 650, imgSrc: "https://emulation.gametechwiki.com/images/thumb/6/64/Ps5.png/900px-Ps5.png" },
+           { title: "Kei Truck", price: 800, imgSrc: "https://kei-truck-garage.myshopify.com/cdn/shop/collections/Honda_Acty_HA8_9_1500x.png?v=1677501148" },
+           { title: "Kitten", price: 1500, imgSrc: "https://i.pinimg.com/originals/0c/27/2b/0c272bc26c77c72e88f2502248645b40.png" },
+           { title: "Puppy", price: 1500, imgSrc: "https://purepng.com/public/uploads/large/215023215238kskprmm636ezroj5dmtje7rprnva9ahtvkivciofvniwobydtedjmktzkgjjghev6qaawyjj2iqieowfn79qxvlpbm0hbhfglvl.png" },
+           { title: "Hot air balloon ride", price: 2000, imgSrc: "https://i.pinimg.com/originals/9a/b9/5f/9ab95fb7346c037d103b5e4160ce2f16.png" },
+           { title: "iPhone 15 Pro Max", price: 2500, imgSrc: "https://www.cellularsales.com/wp-content/uploads/2023/09/iPhone15_Pro_Titanium.png" },
+            { title: "Designer Handbag", price: 3250, imgSrc: "https://www.enigma-boutique.com/wp-content/uploads/2020/07/63168596IWB8745-a.png" },
+            { title: "Acre of land", price: 4000, imgSrc: "https://www.investopedia.com/thmb/hdtiMC_XuDzJO4ez-4DrfgrP7yE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/getty-large-farm-landscape-56c0a6aa5f9b5829f867287c.jpg" },
+            { title: "Luxury Watch", price: 6400, imgSrc: "https://ijl.ca/cdn/shop/products/m126000-0006_collection_upright_portrait_70afc31f-6a95-4374-8e69-1bbbdd9743fc.jpg?v=1680027934&width=2048" },
+            { title: "1 Week African Safari", price: 7000, imgSrc: "https://www.africansafaripackages.co.za/img/africa2.png" },
+            { title: "Diamond Ring", price: 10000, imgSrc: "https://png.pngtree.com/png-clipart/20230414/original/pngtree-big-diamond-ring-jewelry-png-image_9057103.png" },
+            { title: "Waterski", price: 10200, imgSrc: "https://www.deramar.com/wp-content/uploads/2023/01/VX-C-.jpg" },
+            { title: "Luxury Jewelry", price: 15000, imgSrc: "https://img.freepik.com/free-photo/beautiful-luxury-necklace-jewelry-stand-neck_1339-7945.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1703894400&semt=ais" },
+            { title: "Car", price: 30000, imgSrc: "https://vehicle-images.dealerinspire.com/e206-11002297/thumbnails/large/2HGFE1F90RH313776/b9e9b8072dc54490d198c4721db8ad13.png" },
+            { title: "Tesla Model 3", price: 50000, imgSrc: "https://www.stardustev.com.au/wp-content/uploads/2017/11/model3square-533x533.png" },
+            { title: "Golden Fidget Spinner", price: 50000, imgSrc: "https://thejewelerblog.files.wordpress.com/2017/07/fidget1.jpg" },
+            { title: "1Kg of gold", price: 70000, imgSrc: "https://neal.fun/spend/images/gold-bar.jpg" },
+            { title: "Robot Dog", price: 75000, imgSrc: "https://www.sensortips.com/wp-content/uploads/2021/10/spot-explorer-web-2-e1633644852241.png" },
+        
+            { title: "Golden Bath Tub", price: 100000, imgSrc: "https://img.freepik.com/premium-photo/gold-bath-golden-legs-vintage-style-isolated-background-3d-rendering_531308-678.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699488000&semt=ais" },
+            
+            { title: "Monster Truck", price: 150000, imgSrc: "https://i.ibb.co/b7GRypL/DALL-E-2024-01-06-23-47-11-Create-a-photorealistic-image-of-a-smaller-sized-monster-truck-centered-o.png" },
+            
+            { title: "Ferrari", price: 230000, imgSrc: "https://freepngimg.com/thumb/ferrari/13-2-ferrari-png-picture-thumb.png" },
+            { title: "Lamborghini", price: 230000, imgSrc: "https://svg-files.pixelied.com/913f9f39-f8a3-445b-b927-bf59d7805379/thumb-256px.png" },
+            
+            
+            { title: "Jetpack", price: 300000, imgSrc: "https://i.ibb.co/hgBQb3C/Jetpack-Item-Fortnite.png" },
+            { title: "Single Family House", price: 350000, imgSrc: "https://media.gettyimages.com/id/171379069/photo/house.jpg?s=612x612&w=0&k=20&c=8H3moJ-taPvxpWu95gY2L6NpnvrMikil_56DJcOwfck=" },
+            { title: "Faberge Egg", price: 1000000, imgSrc: "https://i.ebayimg.com/images/g/9iUAAOSwn6FgM~qC/s-l1200.webp" },
+            { title: "Personal McDonalds", price: 1500000, imgSrc: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec545603-cf4e-48e0-936d-5376ea12fdc0/dfk61ib-ed956a96-602c-4993-9b11-c2e642f76caf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VjNTQ1NjAzLWNmNGUtNDhlMC05MzZkLTUzNzZlYTEyZmRjMFwvZGZrNjFpYi1lZDk1NmE5Ni02MDJjLTQ5OTMtOWIxMS1jMmU2NDJmNzZjYWYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Ch1xE-w8j8C8l89jOCvLexv3jyuYyubylpZKbrdcgyE" },
+           
+            { title: "30s Superbowl Ad", price: 7000000, imgSrc: "https://sportank.com/assets/images/feature-image-1.png" },
+            { title: "Golden Toilet", price: 8000000, imgSrc: "https://i.pinimg.com/originals/9d/b2/cf/9db2cff3f160c17737f66a5481250a61.png" },
+            
+            
+            { title: "Tank", price: 9000000, imgSrc: "https://www.rcpro.ca/cdn/shop/files/rcprotanksUSM1A2Abrams3918-pro.png?v=1695563717" },
+            
+            { title: "Penthouse", price: 10000000, imgSrc: "https://islandwestbay.com/wp-content/uploads/2022/01/building-cutout-penthouse-min.png" },
+            
+            { title: "Formula 1 Car", price: 15000000, imgSrc: "https://i.pinimg.com/originals/ae/d6/b5/aed6b55143050c6762ed415f1cde83c5.png" },
+            
+            { title: "Apache Helicopter", price: 35000000, imgSrc: "https://neal.fun/spend/images/apache-helicopter.jpg" },
+            
+            
+            { title: "Mansion", price: 50000000, imgSrc: "https://cdn.pixabay.com/photo/2022/10/19/07/36/house-7531809_1280.png" },
+            
+            { title: "DaVinci's Notebook", price: 61000000, imgSrc: "https://www.p3comix.at/wp-content/uploads/2023/10/codex.png" },
+            
+            { title: "Bell Boeing V-22 Osprey", price: 68000000, imgSrc: "https://atlas-content-cdn.pixelsquid.com/assets_v2/150/1506817838189385186/jpeg-600/G03.jpg?modifiedAt=1" },
+            
+            { title: "Boeing 747-8i", price: 418000000, imgSrc: "https://atlas-content-cdn.pixelsquid.com/stock-images/boeing-747-8i-airliner-doWzAxF-600.jpg" },
+            { title: "DaVinci Painting", price: 4500000000, imgSrc: "https://cdn.sanity.io/images/cxgd3urn/production/73ce32d38fdc5341517e586c00e10e6ce9e5a426-734x960.jpg?w=1200&h=1569&fit=crop&auto=format" },
+            
+            { title: 'Superyacht', price: 600000000, imgSrc: "https://static.vecteezy.com/system/resources/previews/027/232/222/non_2x/yacht-yacht-transparent-background-yachting-luxurious-boat-ship-boat-ai-generated-free-png.png" },
+            
+            { title: "Mona Lisa", price: 860000000, imgSrc: "https://i.pngimg.me/thumb/f/720/comdlpng6937990.jpg" },
+            
+            { title: "1g of Francium ", price: 1000000000, imgSrc: "https://sciencenotes.org/wp-content/uploads/2020/10/Uraninite.jpg" },
+            
+            { title: "B2 Bomber", price: 1000000000, imgSrc: "https://media.defense.gov/2003/Apr/24/2001491570/-1/-1/0/24-F-ZZ999-319.jpg" },
+            
+            { title: "Personal Nuclear Submarine", price: 2000000000, imgSrc: "https://atlas-content-cdn.pixelsquid.com/stock-images/hms-artful-ssns-submarine-Od6rKy5-600.jpg" },
+            
+            { title: "NBA Team", price: 2200000000, imgSrc: "https://neal.fun/spend/images/nba-team.jpg" },
+            
+            { title: "Personal Rocket Ship", price: 7000000000, imgSrc: "https://i.pinimg.com/564x/6b/b8/0a/6bb80a1588ed2d7d06ffc42e941d710c.jpg" },
+            
+            { title: "Nuclear Bomb", price: 10000000000, imgSrc: "https://atlas-content-cdn.pixelsquid.com/stock-images/cartoon-nuke-bomb-on-ground-nuclear-vn7Ak21-600.jpg" },
+            
+            { title: "Twitter", price: 44000000000, imgSrc: "https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_twitter-512.png" },
+            
+            { title: "The ISS", price: 150000000000, imgSrc: "https://upload.wikimedia.org/wikipedia/commons/8/88/ISS_after_STS-118_%28computer_rendering_of_August_2006%29.png" },
+            
+            { title: "1g of Antimatter", price: 1000000000000000, imgSrc: "https://cdn.nmsassistant.com/products/1.png" },
+            
+            { title: "‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ Time‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ", price: 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999, imgSrc: "https://static.vecteezy.com/system/resources/previews/019/873/851/original/clock-icon-transparent-free-icon-free-png.png" },
+            
+            
+        ];
+
+        items.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'item';
+            itemElement.innerHTML = `
+                <img src="${item.imgSrc}" alt="${item.title}">
+                <div class="item-title">${item.title}</div>
+                <div class="item-price">$${item.price}</div>
+                <div class="hover-text">${descriptions[item.title]}</div>
+                <div class="item-quantity">
+                    <button onclick="updateItemQuantity('${item.title}', ${item.price}, -1)">-</button>
+                    <input type="number" id="qty-${item.title}" min="0" value="0" readonly>
+                    <button onclick="updateItemQuantity('${item.title}', ${item.price}, 1)">+</button>
+                </div>
+            `;
+            itemsContainer.appendChild(itemElement);
+        });
+
+        function updateItemQuantity(title, price, change) {
+            const quantityInput = document.getElementById(`qty-${title}`);
+            let quantity = parseInt(quantityInput.value) + change;
+
+            if (quantity < 0) quantity = 0;
+
+            const costChange = price * change;
+            if (balance - costChange >= 0 || change < 0) {
+                balance -= costChange;
+                totalSpent += Math.max(costChange, 0);
+                itemsPurchased[title] = (itemsPurchased[title] || 0) + change;
+                balanceElement.textContent = formatNumber(balance);
+                quantityInput.value = quantity;
+                updateOrderSummary();
+            } else {
+                alert("Insufficient funds!");
+            }
+        }
+
+        document.getElementById('orderButton').addEventListener('click', () => {
+            updateOrderSummary();
+            orderModal.classList.add('active');
+        });
+
+        function updateOrderSummary() {
+            let summary = `Congrats you spent $${formatNumber(totalSpent)} out of $${formatNumber(251300000000)}<br><br>You bought:<br>`;
+            for (const [title, quantity] of Object.entries(itemsPurchased)) {
+                if (quantity > 0) {
+                    summary += `- ${quantity}x ${title}<br>`;
+                }
+            }
+            orderSummary.innerHTML = summary;
+        }
+    </script>
+</body>
+</html>
