@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>You are Elon Musk</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background: linear-gradient(#f4f4f4, #d6d6d6);
+            margin: 0;
+            padding: 0 0 50px 0;
+        }
+        
+        .balance {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(#43de7b, #32bf66);
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        #items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: calc(32% - 30px);
+            height: 350px;
+        }
+
+        .item img {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 10px;
+        }
+
+        .item-title, .item-price {
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .item-price {
+            color: #73d865;
+        }
+
+        #orderButton {
+            background: url('you-are-elon-musk.png') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 20px 40px;
+            font-size: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ddd;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            color: #888;
+            float: right;
+            font-size: 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #29a657;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            width: 200px; /* Adjust the size as needed */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-section">
+    <img src="https://i.pinimg.com/originals/71/98/ef/7198ef424ef24f8a64901d73805f8b29.jpg" alt="Profile Picture" class="profile-picture">
+    <img src="cdrc.png" alt="CDRC" class="title">
+</div>
+
+<div class="balance"></div> <!-- Balance background retained, content removed -->
+<div id="items">
+    <!-- Items will be displayed here -->
+</div>
+<button id="orderButton">Order</button>
+
+<!-- Modal for displaying the order summary -->
+<div id="orderModal" class="modal">
+    <span class="close-modal" onclick="document.getElementById('orderModal').classList.remove('active')">&times;</span>
+    <h2>Order Summary</h2>
+    <div id="orderSummary"></div>
+    <button class="tweet-button" id="tweetOrder">Tweet This!</button>
+</div>
+
+<script>
+    const itemsContainer = document.getElementById('items');
+
+    const items = [
+        { title: "Sheet of Paper", imgSrc: "https://static.vecteezy.com/system/resources/previews/013/089/850/original/a4-paper-with-shadow-png.png" },
+        // Add more items here
+    ];
+
+    items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'item';
+        itemElement.innerHTML = `
+            <img src="${item.imgSrc}" alt="${item.title}">
+            <div class="item-title">${item.title}</div>
+        `;
+        itemsContainer.appendChild(itemElement);
+    });
+
+    document.getElementById('orderButton').addEventListener('click', () => {
+        // Order button functionality here
+    });
+</script>
+</body>
+</html>
