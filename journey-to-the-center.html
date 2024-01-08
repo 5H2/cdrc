@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey to the Center</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 63710px; /* Height representing the Earth's radius */
+            font-family: 'Jua', sans-serif;
+            text-align: center;
+            background-image: url('https://www.transparenttextures.com/patterns/cartoon-clouds.png'), linear-gradient(#87ceeb, #87ceeb);
+            background-attachment: fixed;
+        }
+
+        .header {
+            top: 0;
+            background-color: #87ceeb;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: white;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 1em;
+            color: white;
+        }
+
+        .header img.astronaut {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Layers styling here... */
+
+        .scale {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 99;
+        }
+
+        .scale p {
+            margin: 0;
+            font-size: 1em;
+        }
+        
+        
+        
+                        .layer {
+            width: 100%;
+        }
+
+        .surface {
+            background: #58d160; /* Grass color */
+            height: 50px; /* Thin layer of grass */
+        }
+
+        .ground {
+            background: linear-gradient(#9B7653, #828282); /* Ground color */
+            height: 490px; /* Up to 500px including the grass */
+        }
+
+        .crust {
+            background: linear-gradient(#828282, #e8391a); /* Crust color */
+            height: 1500px; /* 700px to 1500px */
+        }
+
+        .upper-mantle {
+            background: linear-gradient(#e8391a, #f5961b); /* Upper mantle color */
+            height: 2600px; /* 1500px to 4100px */
+        }
+
+        .lower-mantle {
+            background: linear-gradient(#f5961b, #ff8400); /* Lower mantle color */
+            height: 2500px; /* 4100px to 6600px */
+        }
+
+        .outer-core {
+            background: linear-gradient(#ff8400, #ffd000); /* Outer core gradient */
+            height: 22300px; /* 6600px to 29000px */
+        }
+
+        .inner-core {
+            background: linear-gradient(#ffd000, #ffe985); /* Inner core gradient */
+            height: 22550px; /* 29000px to 51550px */
+        }
+
+        .center {
+            background: linear-gradient(#ffe985, #fffced); /* Center gradient */
+            height: 12160px; /* From 51550px to the bottom */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://pngfre.com/wp-content/uploads/Astronaut-11.png" class="astronaut">
+        <h1>Journey to the Center</h1>
+        <p>10 pixels = 1 km</p>
+    </div>
+
+    <div class="scale">
+        <p id="depth">0 km</p>
+    </div>
+
+    <div class="surface layer"></div>
+    <div class="ground layer"></div>
+    <div class="crust layer"></div>
+    <div class="upper-mantle layer"></div>
+    <div class="lower-mantle layer"></div>
+    <div class="outer-core layer"></div>
+    <div class="inner-core layer"></div>
+    <div class="center layer"></div>
+
+    <script>
+        window.onscroll = function() {
+            var depth = Math.round(window.pageYOffset / 10);
+            document.getElementById('depth').innerText = depth + ' km';
+        };
+    </script>
+</body>
+</html>
