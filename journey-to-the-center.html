@@ -10,7 +10,7 @@
         body {
             margin: 0;
             padding: 0;
-            height: 63710px; /* Height representing the Earth's radius */
+            height: 31855px; /* 6371 km * 5 pixels per km + 100px for final section */
             font-family: 'Jua', sans-serif;
             text-align: center;
             background-image: url('https://www.transparenttextures.com/patterns/cartoon-clouds.png'), linear-gradient(#87ceeb, #87ceeb);
@@ -19,6 +19,7 @@
 
         .header {
             top: 0;
+            width: 100%;
             background-color: #87ceeb;
             padding: 10px 0;
             z-index: 100;
@@ -36,87 +37,114 @@
             color: white;
         }
 
-        .header img.astronaut {
-            width: 100px;
-            height: auto;
-        }
-
-        /* Layers styling here... */
-
-        .scale {
+        .km-display {
             position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: rgba(0, 0, 0, 0.5);
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
             color: white;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
             padding: 10px;
-            z-index: 99;
+            border-radius: 10px;
         }
 
-        .scale p {
-            margin: 0;
-            font-size: 1em;
+        .depth-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 20px;
         }
         
         
+                .final-text-1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 25px;
+        }
         
-                        .layer {
+        
+                        .final-text-2 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+        }
+        
+        
+                                .final-text-3 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 16px;
+        }
+        
+        
+       
+
+        .layer {
             width: 100%;
         }
 
         .surface {
-            background: #58d160; /* Grass color */
-            height: 50px; /* Thin layer of grass */
+            background: #58d160;
+            height: 25px;
         }
 
         .ground {
-            background: linear-gradient(#9B7653, #828282); /* Ground color */
-            height: 490px; /* Up to 500px including the grass */
+            background: linear-gradient(#9B7653, #828282);
+            height: 245px;
         }
 
         .crust {
-            background: linear-gradient(#828282, #e8391a); /* Crust color */
-            height: 1500px; /* 700px to 1500px */
+            background: linear-gradient(#828282, #e8391a);
+            height: 750px;
         }
 
         .upper-mantle {
-            background: linear-gradient(#e8391a, #f5961b); /* Upper mantle color */
-            height: 2600px; /* 1500px to 4100px */
+            background: linear-gradient(#e8391a, #f5961b);
+            height: 1300px;
         }
 
         .lower-mantle {
-            background: linear-gradient(#f5961b, #ff8400); /* Lower mantle color */
-            height: 2500px; /* 4100px to 6600px */
+            background: linear-gradient(#f5961b, #ff8400);
+            height: 1250px;
         }
 
         .outer-core {
-            background: linear-gradient(#ff8400, #ffd000); /* Outer core gradient */
-            height: 22300px; /* 6600px to 29000px */
+            background: linear-gradient(#ff8400, #ffd000);
+            height: 11150px;
         }
 
         .inner-core {
-            background: linear-gradient(#ffd000, #ffe985); /* Inner core gradient */
-            height: 22550px; /* 29000px to 51550px */
+            background: linear-gradient(#ffd000, #ffe985);
+            height: 11275px;
         }
 
         .center {
-            background: linear-gradient(#ffe985, #fffced); /* Center gradient */
-            height: 12160px; /* From 51550px to the bottom */
+            background: linear-gradient(#ffe985, #fffced);
+            height: 6700px;
+        }
+
+        .final-section {
+            background: black;
+            color: white;
+            height: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="https://pngfre.com/wp-content/uploads/Astronaut-11.png" class="astronaut">
         <h1>Journey to the Center</h1>
-        <p>10 pixels = 1 km</p>
-    </div>
-
-    <div class="scale">
-        <p id="depth">0 km</p>
+        <p>5 pixels = 1 km</p>
     </div>
 
     <div class="surface layer"></div>
@@ -127,11 +155,22 @@
     <div class="outer-core layer"></div>
     <div class="inner-core layer"></div>
     <div class="center layer"></div>
+    <div class="final-section">Created by cdrc</div>
+
+    <div class="km-display" id="kmDisplay">0 km</div>
+
+    <!-- Additional text at specific depths -->
+    <div class="depth-text" style="top: 7500px;">Welcome to the Earth's Crust</div>
+    <div class="depth-text" style="top: 20500px;">Entering the Upper Mantle</div>
+    <div class="final-text-1" style="top: 33100px;">You have made it to the center of the earth.</div>
+    <div class="final-text-2" style="top: 33175px;">You are experiencing 5,200 C° or 9,392 F°</div>
+    <div class="final-text-3" style="top: 33205px;">The pressure you are currently experiencing is 3,000,000x that of earth.</div>
+    <!-- Add more text as needed -->
 
     <script>
         window.onscroll = function() {
-            var depth = Math.round(window.pageYOffset / 10);
-            document.getElementById('depth').innerText = depth + ' km';
+            var depth = Math.min(Math.round(window.pageYOffset / 5), 6371);
+            document.getElementById('kmDisplay').innerText = depth + ' km';
         };
     </script>
 </body>
