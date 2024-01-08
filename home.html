@@ -10,7 +10,6 @@
             text-align: center;
             background: #f4f4f4;
             margin: 0;
-            padding: 0 0 50px 0;
         }
 
         .balance {
@@ -20,6 +19,7 @@
             color: white;
             font-weight: bold;
             animation: colorShift 15s infinite linear;
+            width: 100% + 200px;
         }
 
         @keyframes colorShift {
@@ -41,13 +41,15 @@
         }
 
         .item {
-            margin: 15px;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             cursor: pointer; /* Make it clickable */
             overflow: hidden; /* Ensures the image fits within the border radius */
-            width: 350px;
-            height: 100px;
+            width: 500px;
+            height: 180px;
             transition: transform 0.3s;
         }
 
@@ -97,6 +99,10 @@
 
     const items = [
         { imgSrc: "you-are-elon-musk.png", link: 'you-are-elon-musk.html' },
+        { imgSrc: "from-the-center.png", link: 'from-the-center.html' },
+        { imgSrc: "another-image.png", link: 'another-page.html' },
+        { imgSrc: "another-image.png", link: 'another-page.html' },
+        { imgSrc: "another-image.png", link: 'another-page.html' },
         { imgSrc: "another-image.png", link: 'another-page.html' },
         // Add more items here
     ];
