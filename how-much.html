@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Price Estimation Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+body {
+    font-family: 'Jua', sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.startScreen {
+    text-align: center;
+    padding: 20px;
+}
+
+img {
+    height: 400px;
+    width: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Jua', sans-serif;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: Scale(1.2);
+}
+
+#userInput {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=number] {
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: 'Jua', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.result-text {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+#roundIndicator {
+    position: absolute;
+    top: 20px;
+    left: 48%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Jua', sans-serif;
+    z-index: 1;
+}
+
+
+#userInput {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#submitBtn {
+    margin-top: 10px;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div id="startScreen" class="container">
+        <h1>ㅤㅤㅤㅤㅤHow Much?ㅤㅤㅤㅤㅤ</h1>
+        <button onclick="startGame()">ㅤBeginㅤ</button>
+    </div>
+
+    <div id="gameContainer" class="container hidden">
+        <h2 id="imageTitle"></h2>
+        <p id="imageDesc"></p>
+        <img id="imageDisplay" src="">
+        <div id="userInput">
+    <input type="number" id="userGuess" placeholder="Enter your estimate">
+</div>
+
+
+<div id="submitBtn">
+    <button onclick="submitGuess()">Submit</button>
+</div>
+        <div id="resultText" class="result-text"></div>
+    </div>
+
+    <div id="endScreen" class="container hidden">
+        <h2>Your Score:</h2>
+        <p id="finalScore"></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+    <div id="roundIndicator" class="container hidden">
+    <p id="currentRound"></p>
+</div>
+
+<div id="answerBanner" class="hidden">
+    <p id="answerText"></p>
+</div>
+
+    <script>
+var images = [
+    { src: "https://cdn.sanity.io/images/cxgd3urn/production/73ce32d38fdc5341517e586c00e10e6ce9e5a426-734x960.jpg?w=1200&h=1569&fit=crop&auto=format", title: '"Salvator Mundi"', desc: "Leonardo DaVinci - 1499 – 1510", price: 450300000 },
+    { src: "https://upload.wikimedia.org/wikipedia/en/5/5f/Photo_of_Interchanged_by_Willem_de_Kooning.jpg", title: '"Interchange"', desc: "Willem de Kooning - 1995", price: 300000000 },
+    { src: "https://upload.wikimedia.org/wikipedia/commons/6/69/Les_Joueurs_de_cartes%2C_par_Paul_C%C3%A9zanne.jpg", title: '"The Card Players"', desc: "Paul Cézanne - 1892 - 1893", price: 250000000 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+    { src: "Image", title: '"Title"', desc: "Name - Date", price: 0 },
+
+];
+
+var currentImageIndex = 0;
+var totalScore = 0;
+var rounds = 10;
+var currentRound = 0;
+
+function startGame() {
+    images = images.sort(() => 0.5 - Math.random()).slice(0, rounds);
+    currentImageIndex = 0;
+    totalScore = 0;
+    currentRound = 0;
+    document.getElementById('startScreen').classList.add('hidden');
+    document.getElementById('gameContainer').classList.remove('hidden');
+    document.getElementById('roundIndicator').classList.remove('hidden');
+    showNextImage();
+}
+
+function showNextImage() {
+    if (currentImageIndex >= rounds) {
+        endGame();
+        return;
+    }
+
+    currentRound++;
+    document.getElementById('currentRound').innerText = `Round ${currentRound}/${rounds}`;
+
+    var image = images[currentImageIndex];
+    document.getElementById('imageDisplay').src = image.src;
+    document.getElementById('imageTitle').innerText = image.title;
+    document.getElementById('imageDesc').innerText = image.desc;
+    document.getElementById('userGuess').value = '';
+    document.getElementById('resultText').innerText = '';
+    document.getElementById('submitBtn').style.display = 'block'; // Re-show the submit button
+}
+
+function animatePrice(actualPrice, callback) {
+    let start = 0;
+    const end = actualPrice;
+    let startTimestamp = null;
+
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / 2000, 1);
+        const animatedPrice = Math.floor(progress * (end - start) + start).toLocaleString();
+        document.getElementById('resultText').innerHTML = `Actual Price: $${animatedPrice}<br>`;
+
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        } else if (callback) {
+            callback();
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+function submitGuess() {
+    var userGuessInput = document.getElementById('userGuess');
+    var userGuess = parseFloat(userGuessInput.value);
+
+    // Check if the guess is a valid number and not negative
+    if (isNaN(userGuess) || userGuess < 0) {
+        document.getElementById('resultText').innerText = 'Please enter a valid positive number.';
+        return; // Exit the function without proceeding
+    }
+
+    var actualPrice = images[currentImageIndex].price;
+    var score = Math.round(Math.max(1000 - Math.abs(actualPrice - userGuess) / actualPrice * 1000, 0));
+    totalScore += score;
+
+    document.getElementById('submitBtn').style.display = 'none'; // Hide the submit button
+
+    animatePrice(actualPrice, () => {
+        document.getElementById('resultText').innerHTML = 'Actual Price: $' + actualPrice.toLocaleString() + '<br>+ ' + score + ' Points';
+        setTimeout(() => {
+            currentImageIndex++;
+            if (currentImageIndex < rounds) {
+                showNextImage();
+            } else {
+                endGame();
+            }
+        }, 500); // Wait for 2 seconds after animation to go to next image
+    });
+}
+
+    </script>
+</body>
+</html>
