@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>In Real Time</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        body {
+            font-family: 'Jua', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+        
+        h2 {
+            color: #dbdbdb;
+        }
+
+        .stat-container {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        
+        .section-title {
+            font-size: 20px;
+            margin: 10px;
+            color: #0062ff;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 20px;
+            background-color: #4CAF50;
+            width: 0%;
+        }
+
+        .back-arrow {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #ddd;
+            color: #333;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>In Real Time</h1>
+    
+    <h2>Human</h2>
+    
+
+    <div id="birthStat" class="stat-container">
+        <div class="stat-title">Time Since Last Birth</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <div id="deathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <div id="pollutionDeathsStat" class="stat-container">
+        <div class="stat-title">Time Since Last Air Pollution-Related Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="cancerDeathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Cancer Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    
+    <div id="suicideStat" class="stat-container">
+        <div class="stat-title">Time Since Last Suicide</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="trafficDeathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Traffic-Related Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="smokingDeathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Smoking Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="overdoseDeathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Overdose</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="alcoholDeathStat" class="stat-container">
+        <div class="stat-title">Time Since Last Alcohol-Related Death</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+
+		<h2>Environment</h2>
+        
+        
+        
+    <div id="treeChoppedStat" class="stat-container">
+        <div class="stat-title">Time Since Last Tree Chopped Down</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="plasticProductionStat" class="stat-container">
+        <div class="stat-title">Time Since Last 100 Kg of Plastic Produced</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    <div id="CO2EmissionStat" class="stat-container">
+        <div class="stat-title">Time Since Last Metric Ton of CO2 Emitted</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    <div id="carStat" class="stat-container">
+        <div class="stat-title">Time Since Last Car Produced</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="planeStat" class="stat-container">
+        <div class="stat-title">Time Since Last Airplane Takeoff</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <a href="home.html" class="back-arrow">← Back to Home</a>
+
+    <script>
+function resetProgressBar(statId, timesPerSecond) {
+    const stat = document.querySelector(`#${statId} .progress`);
+    let width = 0;
+    const interval = 1000 / timesPerSecond; // Calculate the interval for each full cycle
+    const updateFrequency = 10; // Frequency of updates in milliseconds
+    const increment = (updateFrequency / interval) * 100; // Calculate the increment per update
+
+    return setInterval(() => {
+        if (width >= 100) {
+            width = 0; // Reset the bar when it hits 100%
+        }
+        width += increment;
+        stat.style.width = width + '%';
+    }, updateFrequency); // Update the bar at a higher frequency for smoothness
+}
+
+// Initialize progress bars
+// HUMAN
+resetProgressBar('treeChoppedStat', 21); // 21 times per second
+resetProgressBar('birthStat', 4.26); // 4.26 times per second
+resetProgressBar('deathStat', 1.83); // 1.83 times per second
+resetProgressBar('cancerDeathStat', 1 / 90); // once every 90 seconds
+resetProgressBar('pollutionDeathsStat', 1.79)
+resetProgressBar('HomicideStat', 1.8 / 60)
+resetProgressBar('suicideStat', 1 / 40)
+resetProgressBar('trafficDeathStat', 1.25 / 60)
+resetProgressBar('smokingDeathStat', 1 / 5)
+resetProgressBar('overdoseDeathStat', 1 / 600)
+resetProgressBar('alcoholDeathStat', 1 / 10)
+
+
+// ENVIRONMENT
+resetProgressBar('plasticProductionStat', 2.8);
+resetProgressBar('CO2EmissionStat', 2.2);
+resetProgressBar('carStat', 2)
+resetProgressBar('planeStat', 1.3333333333333333333333333333333333)
+    </script>
+</body>
+</html>
