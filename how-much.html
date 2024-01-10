@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>How Much?</title>
+    <title>Price Estimation Game</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
@@ -15,6 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transition: transform 0.2s ease;
 }
 
 .container {
@@ -26,20 +27,30 @@ body {
     margin: 20px;
 }
 
+h2 {
+	color:#ded6b1;
+    transition: transform 0.2s ease;
+}
+
+h1 {
+	color:#d1c89d;
+    transition: transform 0.2s ease;
+}
+
 .startScreen {
     text-align: center;
     padding: 20px;
 }
 
 img {
-    height: 400px;
+    max-height: 400px;
     width: auto;
     object-fit: cover;
     border-radius: 5px;
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #ded6b1;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -49,6 +60,14 @@ button {
     font-size: 16px;
     font-family: 'Jua', sans-serif;
     transition: transform 0.2s ease;
+}
+
+h1:hover {
+    transform: Scale(1.2);
+}
+
+h2:hover {
+    transform: Scale(1.2);
 }
 
 button:hover {
@@ -111,6 +130,7 @@ input[type=number] {
 <body>
     <div id="startScreen" class="container">
         <h1>ㅤㅤㅤㅤㅤHow Much?ㅤㅤㅤㅤㅤ</h1>
+        <h2>Guess the price of famous art</h2>
         <button onclick="startGame()">ㅤBeginㅤ</button>
     </div>
 
@@ -133,6 +153,7 @@ input[type=number] {
         <h2>Your Score:</h2>
         <p id="finalScore"></p>
         <button onclick="restartGame()">Play Again</button>
+        <button id="twitterShareButton">Share on Twitter</button> <!-- Twitter Share Button -->
     </div>
     <div id="roundIndicator" class="container hidden">
     <p id="currentRound"></p>
@@ -174,7 +195,7 @@ var images = [
 { src: "https://upload.wikimedia.org/wikipedia/en/6/6b/Jasper_Johns%27s_%27Flag%27%2C_Encaustic%2C_oil_and_collage_on_fabric_mounted_on_plywood%2C1954-55.jpg", title: "Flag", desc: "Jasper Johns - 1958", price: 110000000.0 },
 { src: "https://lh3.googleusercontent.com/ci/AE9Axz_14aU7T9x3ltm8I1MI3qGg6KtS3qwf1aGg-YBSFmicEcKe4XttxWc9qaZsk89qAtPTJbI7IX0=s1200", title: "Portrait of Joseph Roulin", desc: "Vincent van Gogh - 1889", price: 58000000.0 },
 { src: "https://live.staticflickr.com/5518/9592019918_82c59fb9f8_b.jpg", title: "L’Homme assis au verre", desc: "Pablo Picasso - 1914", price: 107500000.0 },
-{ src: "https://c.ndtvimg.com/2023-11/5vec8lk8_femme-a-la-montre-is-a-1932-oil-painting-by-the-famed-spanish-artist-pablo-picasso_625x300_10_November_23.jpeg", title: "Femme à la montre", desc: "Pablo Picasso - 1932", price: 139300000.0 },
+{ src: "https://i.guim.co.uk/img/media/2a029e6f80f6aaa360d2c02a68460de742f9975f/0_574_3994_4990/master/3994.jpg?width=445&dpr=1&s=none", title: "Femme à la montre", desc: "Pablo Picasso - 1932", price: 139300000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/1200px-Irises-Vincent_van_Gogh.jpg", title: "Irises", desc: "Vincent van Gogh - 1889", price: 53900000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/en/c/c3/Dora_Maar_Au_Chat.jpg", title: "Dora Maar au Chat", desc: "Pablo Picasso - 1941", price: 95200000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Eight_Elvises.jpg/400px-Eight_Elvises.jpg", title: "Eight Elvises", desc: "Andy Warhol - 1963", price: 100000000.0 },
@@ -202,7 +223,6 @@ var images = [
 { src: "https://arthive.net/res/media/img/ox800/work/88f/440646.jpg", title: "Turquoise Marilyn", desc: "Andy Warhol - 1964", price: 80000000.0 },
 { src: "https://image-framing.1000museums.com/getResources?rsid=48640&substrate=Paper&size=large&frame=unframed&streamimage=1&prodimage=768", title: "Portrait of Alfonso d'Avalos with a Page", desc: "Titian - 1533", price: 70000000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/en/9/97/Orange%2C_Red%2C_Yellow.jpg", title: "Orange, Red, Yellow", desc: "Mark Rothko - 1961", price: 86900000.0 },
-{ src: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Le_bassin_aux_nymph%C3%A9as_-_Claude_Monet.jpg", title: "Le Bassin aux Nymphéas", desc: "Claude Monet - 1919", price: 80500000.0 },
 { src: "https://ychef.files.bbci.co.uk/1280x720/p0fwgh1x.jpg", title: "Lady with a Fan", desc: "Gustav Klimt - 1917-8", price: 108400000.0 },
 { src: "https://www.edwardhopper.net/assets/img/paintings/chop-suey.jpg", title: "Chop Suey", desc: "Edward Hopper - 1929", price: 91900000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Rideau%2C_Cruchon_et_Compotier%2C_par_Paul_C%C3%A9zanne%2C_Yorck_Project.jpg/800px-Rideau%2C_Cruchon_et_Compotier%2C_par_Paul_C%C3%A9zanne%2C_Yorck_Project.jpg", title: "Rideau, Cruchon et Compotier", desc: "Paul Cézanne - 1894", price: 60500000.0 },
@@ -216,6 +236,30 @@ var images = [
 { src: "https://upload.wikimedia.org/wikipedia/en/d/d2/No._10_%28Rothko%29.png", title: "No. 10", desc: "Mark Rothko - 1958", price: 81900000.0 },
 { src: "https://upload.wikimedia.org/wikipedia/en/9/94/Basquiat-In-This-Case-1983.jpg", title: "In This Case", desc: "Jean-Michel Basquiat - 1983", price: 93100000.0 },
 { src: "https://sothebys-md.brightspotcdn.com/fe/73/4daf3ecc426bab802a014eedb1ee/hk1204-c6ffc-t3-01-crop.jpg", title: "Love is in the air", desc: "Banksy", price: 60},
+
+
+{ src: "https://upload.wikimedia.org/wikipedia/en/8/81/L%27Homme_au_doigt_Alberto_Giacometti.jpg", title: "L'Homme au doigt", desc: "Alberto Giacometti - 1947", price: 141300000.0 },
+{ src: "https://cms.guggenheim-bilbao.eus/uploads/2018/10/2Homme-qui-marche-I.jpg", title: "L'Homme qui marche I", desc: "Alberto Giacometti - 1961", price: 104300000.0 },
+{ src: "https://art.nelson-atkins.org/internal/media/dispatcher/27165/resize%3Aformat%3Dfull;jsessionid=951757E18DB09F36F0DA2EF8D3890170", title: "Chariot", desc: "Alberto Giacometti - 1950", price: 101000000.0 },
+{ src: "https://www.thebroad.org/sites/default/files/styles/webp_convert_only/public/art/koons_rabbit_2.jpg.webp?itok=_RaQdJ1m", title: "Rabbit", desc: "Jeff Koons - 1986", price: 91100000.0 },
+{ src: "https://www.rhapsody-magazine.com/wp-content/uploads/2018/05/brancusi-990x1319-769x1024.jpg", title: "La jeune fille sophistiquée (Portrait de Nancy Cunard)", desc: "Constantin Brâncuși - 1928-1932", price: 71000000.0 },
+{ src: "https://galleryintell.com/wp-content/uploads/2014/10/Amedeo-Modigliani-Tete-1911-1912.jpg", title: "Tête", desc: "Amedeo Modigliani - 1911-1912", price: 70700000.0 },
+{ src: "https://www.christies.com/img/LotImages/2013/NYR/2013_NYR_02791_0012_000(jeff_koons_balloon_dog072521).jpg?mode=max", title: "Balloon Dog (Orange)", desc: "Jeff Koons - 1994–2000", price: 58400000.0 },
+{ src: "https://www.rts.ch/2011/05/27/15/06/3170497.image?w=640&h=360", title: "La muse endormie", desc: "Constantin Brâncuși - 1913", price: 57300000.0 },
+{ src: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Guennol_Lioness.jpg", title: "Guennol Lioness", desc: "Unknown - c.3000 BC", price: 57200000.0 },
+{ src: "https://www.fondation-giacometti.fr/images/174693_02.jpg", title: "Grande tête mince", desc: "Alberto Giacometti - 1955", price: 53300000.0 },
+{ src: "https://media.mutualart.com/Images/2011_04/16/10/104708491/537ec344-8e31-40ca-b7d6-a54a591165b4.Jpeg?w=480", title: "Nu de dos, 4 état (Back IV)", desc: "Henri Matisse - 1958", price: 48800000.0 },
+{ src: "https://uploads6.wikiart.org/images/constantin-brancusi/madame-lr-portrait-de-mme-lr-1918.jpg!Large.jpg", title: "Madame LR (Portrait de Mme LR)", desc: "Constantin Brâncuși - 1914–17", price: 37600000.0 },
+{ src: "https://media.mutualart.com/Images/2022_10/31/14/145326530/jeff-koons-jim-beam---j-b--turner-train-XK6HX.Jpeg?w=768", title: "Jim Beam J.b. Turner Train", desc: "Jeff Koons - 1986", price: 33800000.0 },
+{ src: "https://www.thebroad.org/sites/default/files/styles/webp_convert_only/public/art/koons_tulips.jpg.webp?itok=gvBkIWvR", title: "Tulips", desc: "Jeff Koons - 1995-2004", price: 33700000.0 },
+{ src: "https://media.mutualart.com/Images/2010_10/20/0024/992229/129320398925084651_6ec40997-5679-4cd0-96d9-00605681bf0c_209215_570.Jpeg", title: "Spider", desc: "Louise Bourgeois - 1996", price: 32100000.0 },
+{ src: "https://www.christies.com/PresscenterImages/9139/56718508_AD.JPG", title: "Winged Genius", desc: "Unknown - c. 883 - 859 B.C.", price: 31000000.0 },
+{ src: "https://sothebys-md.brightspotcdn.com/dims4/default/04644c4/2147483647/strip/true/crop/4833x3192+0+0/resize/1024x676!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2Ff5%2F59%2F4f0d446d4458ae4c8b774175c4d3%2F103n11137-cd6xb-t1-02.jpg", title: "Reclining Figure: Festival", desc: "Henry Moore - 1951", price: 30100000.0 },
+{ src: "https://upload.wikimedia.org/wikipedia/en/2/2b/Tete_de_femme_%28Dora_Maar%29.jpg", title: "Tete de femme (Dora Maar)", desc: "Pablo Picasso - 1941", price: 29100000.0 },
+{ src: "https://theartwolf.com/wp-content/uploads/2021/05/artemise-sothebys-1.jpg", title: "Artemis and the Stag", desc: "Unknown - c.100 BC – 100 AD", price: 28600000.0 },
+{ src: "https://uploads0.wikiart.org/00422/images/jeff-koons/sothlot34koonspopeye.jpg!Large.jpg", title: "Popeye", desc: "Jeff Koons - 2009 - 2011", price: 28200000.0 },
+{ src: "https://iiif.micr.io/mToZl/full/%5E1200,/0/default.jpg", title: "Bird in Space", desc: "Constantin Brâncuși - 1922–1923", price: 27500000.0 },
+{ src: "https://sothebys-md.brightspotcdn.com/dims4/default/63e8e64/2147483647/strip/true/crop/1156x2000+0+0/resize/385x666!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F21%2F2d%2Ff3d69ecc462cbaa68652d393af18%2Fbgtrz-a-white.jpg", title: "Grande Femme Debout II", desc: "Alberto Giacometti - 1961", price: 27500000.0 },
 
 
 ];
@@ -310,10 +354,19 @@ function restartGame() {
 
 
 function endGame() {
-    document.getElementById('gameContainer').classList.add('hidden');
-    document.getElementById('endScreen').classList.remove('hidden');
-    document.getElementById('finalScore').innerText = 'You scored ' + totalScore + ' points!';
-}
+            document.getElementById('gameContainer').classList.add('hidden');
+            document.getElementById('endScreen').classList.remove('hidden');
+            document.getElementById('finalScore').innerText = 'You scored ' + totalScore + ' points!';
+            updateTwitterButton(); // Update Twitter Share Button
+        }
+
+        function updateTwitterButton() {
+            var tweetText = encodeURIComponent(`I just scored ${totalScore} points by analyzing art on https://cdrc.lol!`);
+            var twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            document.getElementById('twitterShareButton').onclick = function() {
+                window.open(twitterUrl, '_blank');
+            };
+        }
 
     </script>
 </body>
