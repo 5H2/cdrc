@@ -132,6 +132,19 @@ input[type=number] {
     text-align: center;
 }
 
+.home-link {
+    position: absolute;
+    top: 5px;
+    left: 20px; /* Adjust as needed */
+}
+
+.home-link a {
+    text-decoration: none;
+    color: #9c9c9c; /* Change the color as needed */
+    font-size: 45px; /* Adjust the font size as needed */
+}
+
+
     </style>
 </head>
 <body>
@@ -161,10 +174,20 @@ input[type=number] {
         <p id="finalScore"></p>
         <button onclick="restartGame()">Play Again</button>
         <button id="twitterShareButton">Share on Twitter</button> <!-- Twitter Share Button -->
+        
+        
     </div>
     <div id="roundIndicator" class="container hidden">
     <p id="currentRound"></p>
 </div>
+
+<!-- Add this at the desired location in your HTML -->
+<!-- Home Link -->
+<div class="home-link">
+    <a href="home.html">↜</a>
+</div>
+
+
 
 <div id="answerBanner" class="hidden">
     <p id="answerText"></p>
