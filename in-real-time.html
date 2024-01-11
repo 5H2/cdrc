@@ -3,6 +3,7 @@
 <head>
     <title>In Real Time</title>
     <style>
+    
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
         body {
@@ -132,10 +133,85 @@
         </div>
     </div>
 
+		<h2></h2>
+		<h2>Technology</h2>
+        
 
+  
+    <div id="websiteStat" class="stat-container">
+        <div class="stat-title">Time Since Last Website Created</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="smartphoneStat" class="stat-container">
+        <div class="stat-title">Time Since Last Smartphone Sold</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="tweetsStat" class="stat-container">
+        <div class="stat-title">Time Since Last 1000 Tweets</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="instagramPostStat" class="stat-container">
+        <div class="stat-title">Time Since Last 100 Posts Uploaded to Instagram</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="elonMuskStat" class="stat-container">
+        <div class="stat-title">Time Since Elon Musk Last Made $100</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="youtubeStat" class="stat-container">
+        <div class="stat-title">Time Since Last Hour Worth of Video Uploaded to Youtube</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+        <h2></h2>
+		<h2>Economy and Finance</h2>
+        
+    <div id="stockMarketStat" class="stat-container">
+        <div class="stat-title">Time Since Last 1000 Transactions on the Stock Market</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="bitcoinStat" class="stat-container">
+        <div class="stat-title">Time Since Last Bitcoin Transaction</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="eCommerceStat" class="stat-container">
+        <div class="stat-title">Time Since Last $1,000,000 Worth of Products Sold Online</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="creditCardStat" class="stat-container">
+        <div class="stat-title">Time Since Last Credit Card Transaction</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="startupStat" class="stat-container">
+        <div class="stat-title">Time Since Last Start-Up Founded</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+        
+        
+        <h2></h2>
 		<h2>Environment</h2>
-        
-        
         
     <div id="treeChoppedStat" class="stat-container">
         <div class="stat-title">Time Since Last Tree Chopped Down</div>
@@ -143,32 +219,7 @@
             <div class="progress"></div>
         </div>
     </div>
-    <div id="plasticProductionStat" class="stat-container">
-        <div class="stat-title">Time Since Last 100 Kg of Plastic Produced</div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-    </div>
-    
-    <div id="CO2EmissionStat" class="stat-container">
-        <div class="stat-title">Time Since Last Metric Ton of CO2 Emitted</div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-    </div>
-    
-    <div id="carStat" class="stat-container">
-        <div class="stat-title">Time Since Last Car Produced</div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-    </div>
-    <div id="planeStat" class="stat-container">
-        <div class="stat-title">Time Since Last Airplane Takeoff</div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-    </div>
+
 
     <a href="home.html" class="back-arrow">← Back to Home</a>
 
@@ -204,7 +255,26 @@ resetProgressBar('overdoseDeathStat', 1 / 600)
 resetProgressBar('alcoholDeathStat', 1 / 10)
 
 
-// ENVIRONMENT
+
+// Technology
+resetProgressBar('tweetsStat', 6);
+resetProgressBar('smartphoneStat', 21.6666666667 / 60);
+resetProgressBar('websiteStat', 0.10555555555);
+resetProgressBar('instagramPostStat', 6.94);
+resetProgressBar('elonMuskStat', 8.13);
+resetProgressBar('youtubeStat', 500 / 60);
+
+
+// Economy
+resetProgressBar('stockMarketStat', 1.38888888889);
+resetProgressBar('bitcoinStat', 5);
+resetProgressBar('eCommerceStat', 1 / 60);
+resetProgressBar('creditCardStat', 5000 / 60);
+resetProgressBar('startupStat', 0.00083333333);
+
+
+
+
 resetProgressBar('plasticProductionStat', 2.8);
 resetProgressBar('CO2EmissionStat', 2.2);
 resetProgressBar('carStat', 2)
