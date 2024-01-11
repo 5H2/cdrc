@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>In Real Time</title>
+    <link rel="icon" type="image/x-icon" href="/images/in-real-time.ico">
     <style>
     
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
@@ -137,6 +138,58 @@
 </div>
 
 
+        <h2></h2>
+		<h2>Environment</h2>
+        
+   
+   <div id="ExtinctStat" class="stat-container">
+        <div class="stat-title">Time Since Last Species went Extinct (1/week)</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="desertAcreStat" class="stat-container">
+        <div class="stat-title">Time Since Last Acre of Land was Desertified </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    <div id="lightningStat" class="stat-container">
+        <div class="stat-title">Time Since Last Lightning Strike</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+     <div id="co2Stat" class="stat-container">
+        <div class="stat-title">Time Since Last 10 Tons of CO2 Were Released </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="H2OStat" class="stat-container">
+        <div class="stat-title">Time Since Last 100,000 Gallons of Water Was Consumed </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="treeChoppedStat" class="stat-container">
+        <div class="stat-title">Time Since Last Tree Chopped Down</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div id="plasticOceanStat" class="stat-container">
+        <div class="stat-title">Time Since Piece of Plastic Entered the Ocean (93/s)</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    
+    
+    
+
 
 		<h2></h2>
 		<h2>Technology</h2>
@@ -265,15 +318,6 @@
     </div>
         
         
-        <h2></h2>
-		<h2>Environment</h2>
-        
-    <div id="treeChoppedStat" class="stat-container">
-        <div class="stat-title">Time Since Last Tree Chopped Down</div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-    </div>
 
 
     <a href="home.html" class="back-arrow">← Back to Home</a>
@@ -308,6 +352,12 @@ resetProgressBar('transplantStat', 10 / 60 / 60);
 
 // ENVIRONMENT
 resetProgressBar('treeChoppedStat', 21); // 21 times per second
+resetProgressBar('co2Stat', 5.55555555556);
+resetProgressBar('H2OStat', 41.6666666667);
+resetProgressBar('desertAcreStat', 40 / 60 / 60);
+resetProgressBar('extinctStat', 1 / 604800);
+resetProgressBar('lightningStat', 100 / 60);
+resetProgressBar('plasticOceanStat', 92.5925925926);
 
 
 
