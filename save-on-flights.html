@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save-on-Flights</title>
+    <style>
+        body {
+            font-family: Jua, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 36px;
+        }
+        p {
+            font-size: 18px;
+        }
+        #linkInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            autocomplete: off; /* Disable suggestions */
+        }
+        #fireButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #fireButton.green {
+            background-color: #00b300;
+        }
+        #fireButton.blue {
+            background-color: #007bff;
+        }
+        #fireButton:hover {
+            background-color: #0056b3;
+        }
+        #tabCountSlider {
+            width: 100%;
+            margin-top: 10px;
+        }
+        #tabCountLabel {
+            font-size: 16px;
+        }
+        #error {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Save-on-Flights</h1>
+        <p>Did you know? You can save money on flights, just by opening multiple tabs!</p>
+        <input type="text" id="linkInput" placeholder="Paste in a link" autocomplete="off">
+        <label for="tabCountSlider">Number of Tabs to Open:</label>
+        <span id="tabCountLabel">1</span>
+        <input type="range" id="tabCountSlider" min="1" max="99" value="1">
+        <button id="fireButton" class="blue">FIRE!</button>
+        <div id="error"></div>
+    </div>
+
+    <script>
+        var button = document.getElementById('fireButton');
+        var slider = document.getElementById('tabCountSlider');
+        var label = document.getElementById('tabCountLabel');
+        var errorDiv = document.getElementById('error');
+
+        slider.addEventListener('input', function() {
+            label.textContent = slider.value;
+        });
+
+        button.addEventListener('click', function() {
+            var link = document.getElementById('linkInput').value;
+            var tabCount = parseInt(slider.value);
+
+            // Check if a link is provided
+            if (link.trim() === "") {
+                errorDiv.textContent = "Please paste a link.";
+                return;
+            } else {
+                errorDiv.textContent = "";
+            }
+
+            var tabsOpened = 0;
+            
+            function openTab() {
+                window.open(link);
+                tabsOpened++;
+                if (tabsOpened === tabCount) {
+                    button.classList.toggle('green');
+                    button.classList.toggle('blue');
+                }
+            }
+
+            for (var i = 0; i < tabCount; i++) {
+                openTab();
+            }
+        });
+    </script>
+</body>
+</html>
