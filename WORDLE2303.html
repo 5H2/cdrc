@@ -14,13 +14,12 @@
 }
 body {
   height: 100vh;
-  background: linear-gradient(135deg, #c59cff, #7e5bfb);
+  background-color: #ffffff; /* Changed background to white */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 .wrapper {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
   display: flex;
   gap: 1em;
   background-color: #ffffff;
@@ -45,11 +44,14 @@ body {
   width: 1.7em;
   height: 1.7em;
   text-align: center;
-  border: 1px solid #000000;
+  border: 1px solid #000000; /* Added 1px solid black outline */
+  background-color: transparent;
+  outline: none;
   line-height: 1.7em;
   font-weight: 600;
   text-transform: uppercase;
 }
+
 .correct {
   background-color: #6aaa64;
 }
@@ -110,7 +112,10 @@ body {
     <div class="rules">
       <!-- Image for rules or text -->
     </div>
-    <div class="win-screen hide"></div>
+    <div class="win-screen hide">
+      <h1 style="text-align: center;">Leveled Wordle</h1> <!-- Small start screen with centered text -->
+      <button onclick="startGame()">Start Game</button>
+    </div>
   </div>
   <button class="submit hide">Submit</button>
   <script>
@@ -134,7 +139,7 @@ let levels = [
 { level: 17, word: "QUIET" },
 { level: 18, word: "BENCH" },
 { level: 19, word: "ABATE" },
-{ level: 20, word: "FEIGN" },
+{ level: 20, word: "TROLL" },
 { level: 21, word: "MAJOR" },
 { level: 22, word: "DEATH" },
 { level: 23, word: "FRESH" },
