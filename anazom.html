@@ -174,6 +174,7 @@
   <button class="tablinks" onclick="openCategory(event, 'Clothes')">Clothes</button>
   <button class="tablinks" onclick="openCategory(event, 'Trending')">Trending</button>
   <button class="tablinks" onclick="openCategory(event, 'Decoration')">Decoration</button>
+  <button class="tablinks" onclick="openCategory(event, 'Accessories')">Accessories</button>
 </div>
 
 <div id="Makeup" class="tabcontent"></div>
@@ -181,6 +182,7 @@
 <div id="Clothes" class="tabcontent"></div>
 <div id="Trending" class="tabcontent"></div>
 <div id="Decoration" class="tabcontent"></div>
+<div id="Accessories" class="tabcontent"></div>
 
 <div id="checkoutScreen" class="checkout-screen">
     <span class="close-checkout" onclick="toggleCheckoutScreen()">&times;</span>
@@ -191,9 +193,100 @@
 
 <script>
     let items = [
-        { title: "Dior Lip Gloss", price: 30, imgSrc: "lip-gloss.jpg", category: "Makeup" },
-        { title: "Clay Mask", price: 15, imgSrc: "clay-mask.jpg", category: "Makeup" },
-        { title: "Bike", price: 200, imgSrc: "bike.jpg", category: "Toys" }
+{ title: "Dior Lip Gloss", price: 34, imgSrc: "https://n.nordstrommedia.com/id/sr3/01e53906-ca09-4924-a244-9407430da616.jpeg?trim=color&pad_color=FFF&format=jpeg&w=350&h=536&trimcolor=FFF", category: "Makeup" },
+{ title: "Pyjama", price: 30, imgSrc: "https://m.media-amazon.com/images/I/61zh+91TQpL._AC_SL1000_.jpg", category: "Clothes" },
+{ title: "Miku Figurine", price: 254, imgSrc: "https://static-ca.gamestop.ca/images/products/780608/3max.jpg", category: "Toys" },
+{ title: "Hair Pin (3 pcs)", price: 27.21, imgSrc: "https://m.media-amazon.com/images/I/61ZkW5dEepL.jpg", category: "Accessories" },
+{ title: "Lucky Money Envelope (12 pcs)", price: 11.99, imgSrc: "https://m.media-amazon.com/images/I/91+3sP1KsxL._AC_SY300_SX300_.jpg", category: "Decoration" },
+{ title: "Among Us Plushy", price: 24, imgSrc: "https://m.media-amazon.com/images/I/610jgv0+uOL._AC_SL1300_.jpg", category: "Toys" },
+{ title: "Romand Lip Tint", price: 23.98, imgSrc: "https://m.media-amazon.com/images/I/51V0dnYCDCL._AC_SL1000_.jpg", category: "Makeup" },
+{ title: "Pink and White Orchids", price: 60, imgSrc: "https://m.media-amazon.com/images/I/71UYdwWMhyL.jpg", category: "Decoration" },
+{ title: "Skims Dupe", price: 20, imgSrc: "https://m.media-amazon.com/images/I/61TUeX6wZcL._AC_UY350_.jpg", category: "Clothes" },
+{ title: "Clay Mask", price: 15, imgSrc: "https://m.media-amazon.com/images/I/416ewgnVxwL.jpg", category: "Makeup" },
+{ title: "Bike", price: 78, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/092/803/999999-87876092803.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Trending" },
+{ title: "Monster High Draculaura Doll", price: 39.97, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/900/878/6000204900878.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Monster High Cleo DeNile Doll", price: 39.97, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/054/682/999999-887961054682.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Monster High Clawdeen Wolf Doll", price: 39.97, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/900/908/6000204900908.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Monster High Frankie Doll", price: 39.97, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/900/916/6000204900916.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Bee Movie DVD", price: 9.99, imgSrc: "https://m.media-amazon.com/images/I/81wQjWIRxLL._AC_UF894,1000_QL80_.jpg", category: "Trending" },
+{ title: "Limited Edition KitKat", price: 20, imgSrc: "https://iwholesalecandy.ca/cdn/shop/files/iwholesalecandy-kit-kat-churo.jpg?v=1687553051", category: "Trending" },
+{ title: "Kinder Bueno MEGA PACK", price: 65, imgSrc: "https://m.media-amazon.com/images/I/71DX44uh4jL._AC_UF1000,1000_QL80_.jpg", category: "Trending" },
+{ title: "Glycolic Acid by The Ordinary", price: 30.23, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "GIANT Strawberry Plush", price: 50, imgSrc: "IMAGE", category: "Toys" },
+{ title: "Nana Figurine", price: 450, imgSrc: "IMAGE", category: "Decoration" },
+{ title: "Nyx Lip Liner", price: 25, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "Cat Leash", price: 13.99, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Pink JDM Car", price: 38999.99, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Minecraft Bed", price: 600, imgSrc: "IMAGE", category: "Decoration" },
+{ title: "La Roche Posay Sunscreen", imgSrc: "IMAGE", price: 37.95, category: "Makeup" },
+{ title: "Coraline Figurine", price: 55.95, imgSrc: "IMAGE", category: "Toys" },
+{ title: "Yves Rocher Body Soap", price: 30.55, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "Dove Deodorant", price: 7, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "Gold Hoop Earrings", price: 12, imgSrc: "IMAGE", category: "Accessories" },
+{ title: "Bed Sheets", price: 30, imgSrc: "IMAGE", category: "Decoration" },
+{ title: "Vanilla Essential Oil", price: 12.99, imgSrc: "IMAGE", category: "Makeup" }, // Fixed quotation mark here
+{ title: "Burger", price: 1, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Hoodie", price: 23, imgSrc: "IMAGE", category: "Clothes" },
+{ title: "TV", price: 899.99, imgSrc: "IMAGE", category: "Decoration" },
+{ title: "Nana Manga - Whole Collection", price: 350, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Arabic Perfume", price: 99.99, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "Rice 1 Kg Bag", price: 5, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Wingstop Wings", price: 0.37, imgSrc: "IMAGE", category: "Trending" },
+{ title: "Vivienne Westwood Necklace", price: 800, imgSrc: "IMAGE", category: "Accessories" },
+{ title: "Fake Coach Bag", price: 7.99, imgSrc: "IMAGE", category: "Accessories" },
+{ title: "Victoria Secret 'PINK' Yoga Pants", price: 0, imgSrc: "IMAGE", category: "Clothes" },
+{ title: "Polo Pants", price: 16.99, imgSrc: "IMAGE", category: "Clothes" },
+{ title: "Freddy Fazbear Plush", price: 7.55, imgSrc: "IMAGE", category: "Toys" },
+{ title: "Poo", price: 3, imgSrc: "IMAGE", category: "Decoration" },
+{ title: "Rare Cat", price: 3, imgSrc: "IMAGE", category: "Accessories" },
+
+
+    { title: "Leather Wallet", price: 45.99, imgSrc: "leather_wallet.png", category: "Accessories" },
+    { title: "Bluetooth Speaker", price: 65.49, imgSrc: "bluetooth_speaker.png", category: "Trending" },
+    { title: "Designer Sunglasses", price: 129.99, imgSrc: "designer_sunglasses.png", category: "Accessories" },
+    { title: "Gaming Mouse", price: 39.99, imgSrc: "gaming_mouse.png", category: "Trending" },
+    { title: "Smartphone Stand", price: 12.99, imgSrc: "smartphone_stand.png", category: "Trending" },
+    { title: "Candle Set (3pcs)", price: 29.99, imgSrc: "candle_set.png", category: "Decoration" },
+    { title: "Fitness Tracker", price: 49.95, imgSrc: "fitness_tracker.png", category: "Trending" },
+    { title: "Graphic T-Shirt", price: 19.99, imgSrc: "graphic_tshirt.png", category: "Clothes" },
+    { title: "Desk Organizer", price: 24.95, imgSrc: "desk_organizer.png", category: "Decoration" },
+    { title: "Wireless Earbuds", price: 79.99, imgSrc: "wireless_earbuds.png", category: "Trending" },
+    { title: "Yoga Mat", price: 29.99, imgSrc: "yoga_mat.png", category: "Trending" },
+    { title: "Elegant Watch", price: 89.99, imgSrc: "elegant_watch.png", category: "Accessories" },
+    { title: "Cookware Set", price: 129.95, imgSrc: "cookware_set.png", category: "Trending" },
+    { title: "Plush Teddy Bear", price: 15.99, imgSrc: "plush_teddy_bear.png", category: "Toys" },
+    { title: "Digital Camera", price: 249.99, imgSrc: "digital_camera.png", category: "Accessories" },
+    { title: "Designer Handbag", price: 149.99, imgSrc: "designer_handbag.png", category: "Accessories" },
+    { title: "Hello Kitty Plush", price: 12.99, imgSrc: "hello_kitty_plush.png", category: "Toys" },
+    { title: "Kawaii Stationery Set", price: 9.99, imgSrc: "kawaii_stationery_set.png", category: "Toys" },
+    { title: "Anime Beauty Brushes", price: 18.95, imgSrc: "anime_beauty_brushes.png", category: "Makeup" },
+    { title: "Monster High Doll Set (4pcs)", price: 79.99, imgSrc: "monster_high_dolls_set.png", category: "Toys" },
+    { title: "Kawaii Backpack", price: 24.99, imgSrc: "kawaii_backpack.png", category: "Accessories" },
+    { title: "Cute Makeup Bag", price: 8.99, imgSrc: "cute_makeup_bag.png", category: "Makeup" },
+    { title: "Hello Kitty Earrings", price: 11.95, imgSrc: "hello_kitty_earrings.png", category: "Accessories" },
+    { title: "Kawaii Phone Case", price: 14.99, imgSrc: "kawaii_phone_case.png", category: "Accessories" },
+    { title: "Anime Beauty Palette", price: 24.95, imgSrc: "anime_beauty_palette.png", category: "Makeup" },
+    { title: "Hello Kitty Bracelet", price: 9.99, imgSrc: "hello_kitty_bracelet.png", category: "Accessories" },
+    { title: "Kawaii Plush Keychain", price: 4.99, imgSrc: "kawaii_plush_keychain.png", category: "Toys" },
+    { title: "Anime Beauty Lipstick Set", price: 16.99, imgSrc: "anime_beauty_lipstick_set.png", category: "Makeup" },
+    { title: "Hello Kitty Notebook", price: 6.99, imgSrc: "hello_kitty_notebook.png", category: "Trending" },
+    
+    
+    { title: "Floral Scented Candles (Set of 3)", price: 14.99, imgSrc: "floral_scented_candles.png", category: "Decoration" },
+    { title: "Rose Gold Necklace", price: 19.95, imgSrc: "rose_gold_necklace.png", category: "Accessories" },
+    { title: "Faux Fur Blanket", price: 39.99, imgSrc: "faux_fur_blanket.png", category: "Decoration" },
+    { title: "Crystal Earrings", price: 15.95, imgSrc: "crystal_earrings.png", category: "Accessories" },
+    { title: "Laptop Backpack", price: 34.99, imgSrc: "laptop_backpack.png", category: "Accessories" },
+    { title: "Digital Alarm Clock", price: 18.95, imgSrc: "digital_alarm_clock.png", category: "Trending" },
+    { title: "Botanical Art Prints (Set of 4)", price: 29.99, imgSrc: "botanical_art_prints.png", category: "Decoration" },
+    { title: "Diamond Bracelet", price: 79.95, imgSrc: "diamond_bracelet.png", category: "Accessories" },
+    { title: "Bluetooth Earphones", price: 29.99, imgSrc: "bluetooth_earphones.png", category: "Trending" },
+    { title: "Velvet Throw Pillow", price: 12.99, imgSrc: "velvet_throw_pillow.png", category: "Decoration" },
+    { title: "Pearl Necklace", price: 24.95, imgSrc: "pearl_necklace.png", category: "Accessories" },
+    { title: "Smartwatch", price: 69.95, imgSrc: "smartwatch.png", category: "Trending" },
+    { title: "Canvas Wall Art", price: 39.99, imgSrc: "canvas_wall_art.png", category: "Decoration" },
+    { title: "Silver Bracelet", price: 18.99, imgSrc: "silver_bracelet.png", category: "Accessories" }
+
         // Add more items as needed
     ];
     let cart = {};
