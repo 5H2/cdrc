@@ -1,7 +1,7 @@
-NA <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Anazom</title>
+    <title>Anazom - The Joke Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -103,80 +103,57 @@ NA <!DOCTYPE html>
             width: 30px;
             padding: 5px;
             font-size: 16px;
+            transition: transform 0.2s;
         }
 
-        .item-quantity button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .item-quantity button:hover {
+            transform: scale(1.3);
         }
 
-        .modal {
+        .checkout-screen {
             display: none;
             position: fixed;
+            top: 50px;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid #ddd;
+            transform: translateX(-50%);
             background-color: #fff;
             padding: 20px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             border-radius: 10px;
-            z-index: 2;
-            width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 80%;
+            max-width: 800px;
         }
 
-        .modal.active {
+        .checkout-screen.active {
             display: block;
         }
 
-        .close-modal {
-            cursor: pointer;
-            color: #888;
-            float: right;
-            font-size: 20px;
+        .checkout-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .total-amount {
+            font-size: 18px;
+            margin-top: 20px;
         }
 
         .checkout-button {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            font-size: 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-        }
-
-        .coupon-input {
-            margin-top: 10px;
-        }
-
-        .coupon-button {
-            padding: 5px 10px;
-            margin-left: 10px;
-        }
-
-        .receipt {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-        }
-
-        #cartScreen {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
+            font-size: 16px;
             margin-top: 20px;
         }
 
-        #cartItems, #cartSummary {
-            flex: 1;
-        }
-
-        #cartSummary {
-            margin-left: 20px;
+        .close-checkout {
+            cursor: pointer;
+            color: #888;
+            float: right;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -186,12 +163,11 @@ NA <!DOCTYPE html>
     <h1>Welcome to Anazom</h1>
 </div>
 
-<div class="shopping-cart" onclick="openCart()">
+<div class="shopping-cart" onclick="toggleCheckoutScreen()">
     <i class="fas fa-shopping-cart"></i>
     <span id="cartCount">0</span>
 </div>
 
-<!-- Tab links -->
 <div class="tab">
   <button class="tablinks" onclick="openCategory(event, 'Makeup')">Makeup</button>
   <button class="tablinks" onclick="openCategory(event, 'Toys')">Toys</button>
@@ -200,106 +176,73 @@ NA <!DOCTYPE html>
   <button class="tablinks" onclick="openCategory(event, 'Decoration')">Decoration</button>
 </div>
 
-<!-- Tab content -->
 <div id="Makeup" class="tabcontent"></div>
 <div id="Toys" class="tabcontent"></div>
 <div id="Clothes" class="tabcontent"></div>
 <div id="Trending" class="tabcontent"></div>
 <div id="Decoration" class="tabcontent"></div>
 
-<!-- Cart Screen (initially hidden) -->
-<div id="cartScreen" style="display: none;">
-    <div id="cartItems"></div>
-    <div id="cartSummary">
-        <p>Total: $<span id="totalAmount">0</span></p>
-        <input type="text" class="coupon-input" id="couponCode" placeholder="Coupon Code">
-        <button class="coupon-button" onclick="applyCoupon()">Apply Coupon</button>
-        <button class="checkout-button" onclick="checkout()">Check Out</button>
-        <div class="receipt" id="receipt"></div>
-    </div>
+<div id="checkoutScreen" class="checkout-screen">
+    <span class="close-checkout" onclick="toggleCheckoutScreen()">&times;</span>
+    <div id="checkoutItems"></div>
+    <div class="total-amount">Total: $<span id="checkoutTotal">0</span></div>
+    <button class="checkout-button" onclick="checkout()">Checkout</button>
 </div>
 
 <script>
-    let balance = 251300000000;
-    let totalSpent = 0;
-    let itemsPurchased = {};
-    const items = [
-        { title: "Dior Lip Gloss", price: 30, imgSrc: "https://faces.pearlbrandsonline.com/wp-content/uploads/sites/2/2022/07/DOR-C013300754.jpg", category: "Makeup" },
-        { title: "Clay Mask", price: 15, imgSrc: "https://m.media-amazon.com/images/I/819kIWuzKNL.__AC_SX300_SY300_QL70_ML2_.jpg", category: "Makeup" },
-        { title: "Bike", price: 200, imgSrc: "https://i5.walmartimages.ca/images/Large/092/803/999999-87876092803.jpg", category: "Toys" }
-        { title: "Roman Lip Tint", price: 15, imgSrc: "https://m.media-amazon.com/images/I/51V0dnYCDCL._AC_SL1000_.jpg", category: "Makeup" }
-        // Add more items as per categories
+    let items = [
+        { title: "Dior Lip Gloss", price: 30, imgSrc: "lip-gloss.jpg", category: "Makeup" },
+        { title: "Clay Mask", price: 15, imgSrc: "clay-mask.jpg", category: "Makeup" },
+        { title: "Bike", price: 200, imgSrc: "bike.jpg", category: "Toys" }
+        // Add more items as needed
     ];
+    let cart = {};
 
-    function formatNumber(num) {
-        return num.toLocaleString();
+    function addToCart(title) {
+        cart[title] = (cart[title] || 0) + 1;
+        updateCartCount();
+        updateCheckoutItems();
+    }
+
+    function removeFromCart(title) {
+        if (cart[title]) {
+            cart[title]--;
+            if (cart[title] === 0) {
+                delete cart[title];
+            }
+            updateCartCount();
+            updateCheckoutItems();
+        }
     }
 
     function updateCartCount() {
-        let count = 0;
-        for (const quantity of Object.values(itemsPurchased)) {
-            count += Math.max(quantity, 0);
-        }
-        document.getElementById('cartCount').textContent = count;
+        let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
+        document.getElementById('cartCount').textContent = totalCount;
     }
 
-    function updateItemQuantity(title, price, change) {
-        const quantityInput = document.getElementById(`qty-${title}`);
-        let quantity = parseInt(quantityInput.value) + change;
-
-        if (quantity < 0) quantity = 0;
-
-        const costChange = price * change;
-        if (change < 0 || (change > 0 && balance - costChange >= 0)) {
-            balance -= costChange;
-            totalSpent += Math.max(costChange, 0);
-            itemsPurchased[title] = (itemsPurchased[title] || 0) + change;
-            updateCartCount();
-        } else {
-            alert("Insufficient funds!");
-        }
-    }
-
-    function openCart() {
-        document.getElementById('cartScreen').style.display = 'block';
-        updateCartScreen();
-    }
-
-    function updateCartScreen() {
-        const cartItemsDiv = document.getElementById('cartItems');
-        cartItemsDiv.innerHTML = ''; 
+    function updateCheckoutItems() {
+        let checkoutItemsDiv = document.getElementById('checkoutItems');
+        checkoutItemsDiv.innerHTML = '';
         let total = 0;
-
-        for (const [title, quantity] of Object.entries(itemsPurchased)) {
-            if (quantity > 0) {
-                const item = items.find(i => i.title === title);
-                const amount = item.price * quantity;
-                total += amount;
-                cartItemsDiv.innerHTML += `<p>${quantity} x ${title} - $${amount}</p>`;
-            }
+        for (let [title, quantity] of Object.entries(cart)) {
+            let item = items.find(i => i.title === title);
+            let itemTotal = item.price * quantity;
+            total += itemTotal;
+            checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
         }
-
-        document.getElementById('totalAmount').textContent = total.toFixed(2);
+        document.getElementById('checkoutTotal').textContent = total.toFixed(2);
     }
 
-    function applyCoupon() {
-        const couponCode = document.getElementById('couponCode').value;
-        let total = parseFloat(document.getElementById('totalAmount').textContent);
-        if (couponCode === '100OFF') {
-            total = Math.max(total - 100, 0);
-        } else if (couponCode === 'SAVE25') {
-            total *= 0.75;
-        }
-        document.getElementById('totalAmount').textContent = total.toFixed(2);
+    function toggleCheckoutScreen() {
+        let checkoutScreen = document.getElementById('checkoutScreen');
+        checkoutScreen.classList.toggle('active');
     }
 
     function checkout() {
-        const receiptDiv = document.getElementById('receipt');
-        receiptDiv.innerHTML = `<h3>Receipt</h3>${document.getElementById('cartItems').innerHTML}`;
-        receiptDiv.innerHTML += `<p>Total Paid: $${document.getElementById('totalAmount').textContent}</p>`;
-        itemsPurchased = {};
+        alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
+        cart = {};
         updateCartCount();
-        updateCartScreen();
+        toggleCheckoutScreen();
     }
 
     function openCategory(evt, categoryName) {
@@ -317,22 +260,21 @@ NA <!DOCTYPE html>
     }
 
     items.forEach(item => {
-        const itemElement = document.createElement('div');
+        let itemElement = document.createElement('div');
         itemElement.className = 'item';
         itemElement.innerHTML = `
             <img src="${item.imgSrc}" alt="${item.title}">
             <div class="item-title">${item.title}</div>
-            <div class="item-price">$${item.price}</div>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
             <div class="item-quantity">
-                <button onclick="updateItemQuantity('${item.title}', ${item.price}, -1)">-</button>
-                <input type="number" id="qty-${item.title}" min="0" value="0" readonly>
-                <button onclick="updateItemQuantity('${item.title}', ${item.price}, 1)">+</button>
+                <button onclick="addToCart('${item.title}')">+</button>
+                <input type="number" value="${cart[item.title] || 0}" readonly>
+                <button onclick="removeFromCart('${item.title}')">-</button>
             </div>
         `;
         document.getElementById(item.category).appendChild(itemElement);
     });
 
-    // Open the first tab by default
     document.getElementsByClassName("tablinks")[0].click();
 </script>
 </body>
