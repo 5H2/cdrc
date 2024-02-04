@@ -6,96 +6,27 @@
   <title>Leveled Wordle</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
   <style>
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-body {
-  height: 100vh;
-  background-color: #ffffff; /* Changed background to white */
-  display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-}
-.wrapper {
-  display: flex;
-  gap: 1em;
-  background-color: #ffffff;
-  padding: 1em;
-  border-radius: 0.5em;
-  box-shadow: 0 2.5em 3.75em rgba(30, 19, 70, 0.3);
-}
-.container {
-  width: 18.75em;
-  height: 22.5em;
-  position: relative;
-}
-.input-group {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.2em;
-  margin: 0.2em 0;
-}
-.input-box {
-  font-size: 2em;
-  width: 1.7em;
-  height: 1.7em;
-  text-align: center;
-  border: 1px solid #000000; /* Added 1px solid black outline */
-  background-color: transparent;
-  outline: none;
-  line-height: 1.7em;
-  font-weight: 600;
-  text-transform: uppercase;
-}
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-.correct {
-  background-color: #6aaa64;
-}
-.exists {
-  background-color: #c9b458;
-}
-.incorrect {
-  background-color: #787c7e;
-}
-.correct, .exists, .incorrect {
-  color: #ffffff;
-}
-.win-screen {
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #c59cff, #7e5bfb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+.back-button {
   position: absolute;
-  background-color: #ffffff;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-radius: 0.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1em;
-  font-weight: 400;
-}
-.win-screen button {
-  font-size: 1.2em;
-  background-color: #7e5bfb;
-  border: none;
-  outline: none;
-  padding: 0.8em 2em;
-  border-radius: 2em;
-}
-.hide {
-  display: none;
-}
-.submit {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2em;
+  top: 15px; /* Adjust the top position as needed */
+  left: 50px; /* Adjust the left position as needed */
+  font-size: 0.5em;
   background-color: #7e5bfb;
   border: none;
   outline: none;
@@ -104,22 +35,161 @@ body {
   color: white;
 }
 
+
+    /* Level display styles */
+    .level-display {
+      text-align: center;
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    .wrapper {
+      background-color: #ffffff;
+      padding: 1em;
+      border-radius: 0.5em;
+      box-shadow: 0 2.5em 3.75em rgba(30, 19, 70, 0.3);
+    }
+
+    .container {
+      width: 18.75em;
+      height: 22.5em;
+      position: relative;
+    }
+
+    .input-group {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.2em;
+      margin: 0.2em 0;
+    }
+
+    .input-box {
+      font-size: 2em;
+      width: 1.7em;
+      height: 1.7em;
+      text-align: center;
+      border: 1px solid #000000;
+      line-height: 1.7em;
+      font-weight: 600;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border: 1px solid #7e5bfb;
+    }
+
+    .correct {
+      background-color: #6aaa64;
+    }
+
+    .exists {
+      background-color: #c9b458;
+    }
+
+    .incorrect {
+      background-color: #787c7e;
+    }
+
+    .correct,
+    .exists,
+    .incorrect {
+      color: #ffffff;
+    }
+
+    .win-screen {
+      position: absolute;
+      background-color: #ffffff;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      border-radius: 0.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1em;
+      font-weight: 400;
+    }
+
+    .win-screen button {
+      font-size: 1.2em;
+      background-color: #7e5bfb;
+      border: none;
+      outline: none;
+      padding: 0.8em 2em;
+      border-radius: 2em;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .submit {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2em;
+      background-color: #7e5bfb;
+      border: none;
+      outline: none;
+      padding: 0.8em 2em;
+      border-radius: 2em;
+      color: white;
+    }
+
+    /* Start screen styles */
+    .start-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    /* Start button styles */
+    .start-button {
+      font-size: 2em;
+      background-color: #7e5bfb;
+      border: none;
+      outline: none;
+      padding: 0.8em 2em;
+      border-radius: 2em;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <!-- Start menu -->
+  <div class="start-screen" id="startScreen">
+    <button class="start-button" onclick="startGame(1)">START</button>
+  </div>
+
+  <!-- Back button -->
+  <button class="back-button" onclick="window.location.href='home.html'">Back</button>
+
   <div class="wrapper">
+    <!-- Level display -->
+    <div class="level-display" id="levelDisplay"></div>
     <div class="container"></div>
     <div class="rules">
       <!-- Image for rules or text -->
     </div>
-    <div class="win-screen hide">
-      <h1 style="text-align: center;">Leveled Wordle</h1> <!-- Small start screen with centered text -->
-      <button onclick="startGame()">Start Game</button>
-    </div>
+    <div class="win-screen hide"></div>
   </div>
   <button class="submit hide">Submit</button>
+
   <script>
-let levels = [
+    let levels = [
 { level: 1, word: "CIGAR" },
 { level: 2, word: "REBUT" },
 { level: 3, word: "SISSY" },
@@ -139,7 +209,7 @@ let levels = [
 { level: 17, word: "QUIET" },
 { level: 18, word: "BENCH" },
 { level: 19, word: "ABATE" },
-{ level: 20, word: "TROLL" },
+{ level: 20, word: "FEIGN" },
 { level: 21, word: "MAJOR" },
 { level: 22, word: "DEATH" },
 { level: 23, word: "FRESH" },
@@ -361,11 +431,11 @@ let levels = [
 { level: 239, word: "ULTRA" },
 { level: 240, word: "ROBIN" },
 { level: 241, word: "CYNIC" },
-{ level: 242, word: "AGORA " },
+{ level: 242, word: "AGORA" },
 { level: 243, word: "AROMA" },
 { level: 244, word: "CAULK" },
 { level: 245, word: "SHAKE" },
-{ level: 246, word: "PUPAL " },
+{ level: 246, word: "PUPAL" },
 { level: 247, word: "DODGE" },
 { level: 248, word: "SWILL" },
 { level: 249, word: "TACIT" },
@@ -681,7 +751,7 @@ let levels = [
 { level: 559, word: "DADDY" },
 { level: 560, word: "QUASI" },
 { level: 561, word: "ARISE" },
-{ level: 562, word: "DONT" },
+{ level: 562, word: "FUCKS" },
 { level: 563, word: "REPOST" },
 { level: 564, word: "AGING" },
 { level: 565, word: "VALET" },
@@ -2422,133 +2492,135 @@ let levels = [
 { level: 2300, word: "RISER" },
 { level: 2301, word: "TWIXT" },
 { level: 2302, word: "PEACE" },
-{ level: 2303, word: "FLUSH" },
+{ level: 2303, word: "FLUSH" }
 ];
 
+    let container = document.querySelector(".container");
+    let winScreen = document.querySelector(".win-screen");
+    let submitButton = document.querySelector(".submit");
+    let currentLevel = 0;
+    let inputCount = 0;
+    let tryCount = 0;
+    let finalWord = "";
 
+    const startGame = (level) => {
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("levelDisplay").style.display = "block";
 
-
-let container = document.querySelector(".container");
-let winScreen = document.querySelector(".win-screen");
-let submitButton = document.querySelector(".submit");
-let currentLevel = 0;
-let inputCount = 0;
-let tryCount = 0;
-let finalWord = "";
-
-const startGame = () => {
-  winScreen.classList.add("hide");
-  container.innerHTML = "";
-  inputCount = 0;
-  tryCount = 0;
-  finalWord = "";
-
-  for (let i = 0; i < 6; i++) {
-    let inputGroup = document.createElement("div");
-    inputGroup.classList.add("input-group");
-    for (let j = 0; j < 5; j++) {
-      let inputBox = document.createElement("input");
-      inputBox.type = "text";
-      inputBox.className = "input-box";
-      inputBox.maxLength = "1";
-      inputBox.onkeyup = (event) => checker(event, inputBox);
-      inputBox.disabled = true;
-      inputGroup.appendChild(inputBox);
-    }
-    container.appendChild(inputGroup);
-  }
-
-  let firstRow = container.firstChild.firstChild;
-  firstRow.disabled = false;
-  firstRow.focus();
-};
-
-const getRandom = () => levels[currentLevel].word;
-
-const checker = (event, inputBox) => {
-  let value = event.target.value.toUpperCase();
-  if (value.length === 1 && event.key !== "Backspace") {
-    inputBox.value = value;
-    inputBox.disabled = true;
-    finalWord += value;
-
-    if (inputBox.nextElementSibling) {
-      inputBox.nextElementSibling.disabled = false;
-      inputBox.nextElementSibling.focus();
-    } else {
-      submitButton.classList.remove("hide");
-    }
-    inputCount++;
-  } else if (event.key === "Backspace") {
-    inputBox.value = "";
-    if (inputBox.previousElementSibling) {
-      inputBox.previousElementSibling.disabled = false;
-      inputBox.previousElementSibling.focus();
-      finalWord = finalWord.slice(0, -1);
-    }
-    inputCount--;
-  }
-};
-
-submitButton.addEventListener("click", () => {
-  validateWord();
-});
-
-const validateWord = () => {
-  let randomWord = getRandom();
-  let inputGroups = document.querySelectorAll(".input-group");
-  let currentInputs = inputGroups[tryCount].querySelectorAll(".input-box");
-
-  if (finalWord.length !== 5) {
-    alert("Please fill all the boxes.");
-    return;
-  }
-
-  currentInputs.forEach((inputBox, index) => {
-    if (randomWord[index] === finalWord[index]) {
-      inputBox.classList.add("correct");
-    } else if (randomWord.includes(finalWord[index])) {
-      inputBox.classList.add("exists");
-    } else {
-      inputBox.classList.add("incorrect");
-    }
-  });
-
-  if (finalWord === randomWord) {
-    setTimeout(() => {
-      winScreen.classList.remove("hide");
-      winScreen.innerHTML = `<span>Congratulations, you've completed level ${levels[currentLevel].level}!</span>
-        <button onclick="nextLevel()">Next Level</button>`;
-    }, 1000);
-  } else {
-    tryCount++;
-    if (tryCount === 6) {
-      setTimeout(() => {
-        winScreen.classList.remove("hide");
-        winScreen.innerHTML = `<span>Game Over! The word was ${randomWord}.</span>
-          <button onclick="startGame()">Try Again</button>`;
-      }, 1000);
-    } else {
+      currentLevel = level - 1;
+      document.getElementById("levelDisplay").textContent = `Level ${level}`;
+      winScreen.classList.add("hide");
+      container.innerHTML = "";
+      inputCount = 0;
+      tryCount = 0;
       finalWord = "";
-      let nextRow = inputGroups[tryCount].querySelectorAll(".input-box");
-      nextRow[0].disabled = false;
-      nextRow[0].focus();
-    }
-  }
-  submitButton.classList.add("hide");
-};
 
-const nextLevel = () => {
-  currentLevel++;
-  if (currentLevel < levels.length) {
-    startGame();
-  } else {
-    winScreen.innerHTML = `<span>Congratulations, you've completed all levels!</span>`;
-  }
-};
+      for (let i = 0; i < 6; i++) {
+        let inputGroup = document.createElement("div");
+        inputGroup.classList.add("input-group");
+        for (let j = 0; j < 5; j++) {
+          let inputBox = document.createElement("input");
+          inputBox.type = "text";
+          inputBox.className = "input-box";
+          inputBox.maxLength = "1";
+          inputBox.onkeyup = (event) => checker(event, inputBox);
+          inputBox.disabled = true;
+          inputGroup.appendChild(inputBox);
+        }
+        container.appendChild(inputGroup);
+      }
 
-window.onload = startGame;
+      let firstRow = container.firstChild.firstChild;
+      firstRow.disabled = false;
+      firstRow.focus();
+    };
 
+    const getRandom = () => levels[currentLevel].word;
+
+    const checker = (event, inputBox) => {
+      let value = event.target.value.toUpperCase();
+      if (value.length === 1 && event.key !== "Backspace") {
+        inputBox.value = value;
+        inputBox.disabled = true;
+        finalWord += value;
+
+        if (inputBox.nextElementSibling) {
+          inputBox.nextElementSibling.disabled = false;
+          inputBox.nextElementSibling.focus();
+        } else {
+          submitButton.classList.remove("hide");
+        }
+        inputCount++;
+      } else if (event.key === "Backspace") {
+        inputBox.value = "";
+        if (inputBox.previousElementSibling) {
+          inputBox.previousElementSibling.disabled = false;
+          inputBox.previousElementSibling.focus();
+          finalWord = finalWord.slice(0, -1);
+        }
+        inputCount--;
+      }
+    };
+
+    submitButton.addEventListener("click", () => {
+      validateWord();
+    });
+
+    const validateWord = () => {
+      let randomWord = getRandom();
+      let inputGroups = document.querySelectorAll(".input-group");
+      let currentInputs = inputGroups[tryCount].querySelectorAll(".input-box");
+
+      if (finalWord.length !== 5) {
+        alert("Please fill all the boxes.");
+        return;
+      }
+
+      currentInputs.forEach((inputBox, index) => {
+        if (randomWord[index] === finalWord[index]) {
+          inputBox.classList.add("correct");
+        } else if (randomWord.includes(finalWord[index])) {
+          inputBox.classList.add("exists");
+        } else {
+          inputBox.classList.add("incorrect");
+        }
+      });
+
+      if (finalWord === randomWord) {
+        setTimeout(() => {
+          winScreen.classList.remove("hide");
+          winScreen.innerHTML = `<span>Congratulations, you've completed level ${levels[currentLevel].level}!</span>
+            <button onclick="nextLevel()">Next Level</button>`;
+        }, 1000);
+      } else {
+        tryCount++;
+        if (tryCount === 6) {
+          setTimeout(() => {
+            winScreen.classList.remove("hide");
+            winScreen.innerHTML = `<span>Game Over! The word was ${randomWord}.</span>
+              <button onclick="startGame(currentLevel + 1)">Try Next Level</button>`;
+          }, 1000);
+        } else {
+          finalWord = "";
+          let nextRow = inputGroups[tryCount].querySelectorAll(".input-box");
+          nextRow[0].disabled = false;
+          nextRow[0].focus();
+        }
+      }
+      submitButton.classList.add("hide");
+    };
+
+    const nextLevel = () => {
+      if (currentLevel < levels.length - 1) {
+        startGame(currentLevel + 2);
+      } else {
+        winScreen.innerHTML = `<span>Congratulations, you've completed all levels!</span>`;
+      }
+    };
+
+    window.onload = () => {
+      document.getElementById("levelDisplay").style.display = "none";
+    };
   </script>
 </body>
 </html>
