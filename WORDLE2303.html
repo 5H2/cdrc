@@ -22,19 +22,18 @@
       justify-content: center;
     }
 
-.back-button {
-  position: absolute;
-  top: 15px; /* Adjust the top position as needed */
-  left: 50px; /* Adjust the left position as needed */
-  font-size: 0.5em;
-  background-color: #7e5bfb;
-  border: none;
-  outline: none;
-  padding: 0.8em 2em;
-  border-radius: 2em;
-  color: white;
-}
-
+    .back-button {
+      position: absolute;
+      top: 15px; /* Adjust the top position as needed */
+      left: 50px; /* Adjust the left position as needed */
+      font-size: 0.5em;
+      background-color: #7e5bfb;
+      border: none;
+      outline: none;
+      padding: 0.8em 2em;
+      border-radius: 2em;
+      color: white;
+    }
 
     /* Level display styles */
     .level-display {
@@ -166,16 +165,49 @@
       color: white;
       cursor: pointer;
     }
+
+    /* Custom word creation styles */
+    .custom-word-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .custom-word-input {
+      font-size: 1.3em;
+      margin: 15px;
+      padding: 0.5em;
+    }
+
+    .custom-word-button {
+      font-size: 1.1em;
+      background-color: #7e5bfb;
+      border: none;
+      outline: none;
+      padding: 0.5em 2em;
+      border-radius: 2em;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
   <!-- Start menu -->
   <div class="start-screen" id="startScreen">
     <button class="start-button" onclick="startGame(1)">START</button>
+    <button class="custom-word-button" onclick="showCustomWordMenu()">CREATE CUSTOM WORD</button>
   </div>
 
   <!-- Back button -->
   <button class="back-button" onclick="window.location.href='home.html'">Back</button>
+
+  <!-- Custom word creation menu -->
+  <div class="custom-word-menu" id="customWordMenu">
+    <input type="text" class="custom-word-input" id="customWordInput" placeholder="Enter a 5-letter word">
+    <button class="custom-word-button" onclick="createCustomWord()">Create Level</button>
+  </div>
 
   <div class="wrapper">
     <!-- Level display -->
@@ -431,11 +463,11 @@
 { level: 239, word: "ULTRA" },
 { level: 240, word: "ROBIN" },
 { level: 241, word: "CYNIC" },
-{ level: 242, word: "AGORA" },
+{ level: 242, word: "AGORA " },
 { level: 243, word: "AROMA" },
 { level: 244, word: "CAULK" },
 { level: 245, word: "SHAKE" },
-{ level: 246, word: "PUPAL" },
+{ level: 246, word: "PUPAL " },
 { level: 247, word: "DODGE" },
 { level: 248, word: "SWILL" },
 { level: 249, word: "TACIT" },
@@ -751,7 +783,7 @@
 { level: 559, word: "DADDY" },
 { level: 560, word: "QUASI" },
 { level: 561, word: "ARISE" },
-{ level: 562, word: "FUCKS" },
+{ level: 562, word: "DONT" },
 { level: 563, word: "REPOST" },
 { level: 564, word: "AGING" },
 { level: 565, word: "VALET" },
@@ -2493,7 +2525,7 @@
 { level: 2301, word: "TWIXT" },
 { level: 2302, word: "PEACE" },
 { level: 2303, word: "FLUSH" }
-];
+    ];
 
     let container = document.querySelector(".container");
     let winScreen = document.querySelector(".win-screen");
@@ -2505,6 +2537,7 @@
 
     const startGame = (level) => {
       document.getElementById("startScreen").style.display = "none";
+      document.getElementById("customWordMenu").style.display = "none";
       document.getElementById("levelDisplay").style.display = "block";
 
       currentLevel = level - 1;
@@ -2615,6 +2648,25 @@
         startGame(currentLevel + 2);
       } else {
         winScreen.innerHTML = `<span>Congratulations, you've completed all levels!</span>`;
+      }
+    };
+
+    // Function to show custom word creation menu
+    const showCustomWordMenu = () => {
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("customWordMenu").style.display = "flex";
+    };
+
+    // Function to create a custom word level
+    const createCustomWord = () => {
+      const customWord = document.getElementById("customWordInput").value.trim().toUpperCase();
+      if (customWord.length === 5) {
+        levels.push({ level: levels.length + 1, word: customWord });
+        startGame(levels.length);
+        document.getElementById("customWordInput").value = "";
+        document.getElementById("customWordMenu").style.display = "none";
+      } else {
+        alert("Please enter a 5-letter word.");
       }
     };
 
