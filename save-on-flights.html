@@ -77,43 +77,46 @@
         <div id="error"></div>
     </div>
 
-    <script>
-        var button = document.getElementById('fireButton');
-        var slider = document.getElementById('tabCountSlider');
-        var label = document.getElementById('tabCountLabel');
-        var errorDiv = document.getElementById('error');
+<script>
+    var button = document.getElementById('fireButton');
+    var slider = document.getElementById('tabCountSlider');
+    var label = document.getElementById('tabCountLabel');
+    var errorDiv = document.getElementById('error');
+    var link = document.getElementById('linkInput').value;
 
-        slider.addEventListener('input', function() {
-            label.textContent = slider.value;
-        });
+    slider.addEventListener('input', function () {
+        label.textContent = slider.value;
+    });
 
-        button.addEventListener('click', function() {
-            var link = document.getElementById('linkInput').value;
-            var tabCount = parseInt(slider.value);
+    button.addEventListener('click', function () {
+        var tabCount = parseInt(slider.value);
 
-            // Check if a link is provided
-            if (link.trim() === "") {
-                errorDiv.textContent = "Please paste a link.";
-                return;
-            } else {
-                errorDiv.textContent = "";
+        // Check if a link is provided
+        if (link.trim() === "") {
+            errorDiv.textContent = "Please paste a link.";
+            return;
+        } else {
+            errorDiv.textContent = "";
+        }
+
+        var tabsOpened = 0;
+        var openTabs = [];
+
+        function openTab() {
+            var newTab = window.open(link, '_blank');
+            openTabs.push(newTab);
+            tabsOpened++;
+            if (tabsOpened === tabCount) {
+                button.classList.toggle('green');
+                button.classList.toggle('blue');
             }
+        }
 
-            var tabsOpened = 0;
-            
-            function openTab() {
-                window.open(link);
-                tabsOpened++;
-                if (tabsOpened === tabCount) {
-                    button.classList.toggle('green');
-                    button.classList.toggle('blue');
-                }
-            }
+        for (var i = 0; i < tabCount; i++) {
+            openTab();
+        }
+    });
+</script>
 
-            for (var i = 0; i < tabCount; i++) {
-                openTab();
-            }
-        });
-    </script>
 </body>
 </html>
