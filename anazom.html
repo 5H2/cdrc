@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Anazom</title>
+    <title>Anazom - The Joke Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -68,11 +68,11 @@
         }
 
         .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 20px;
+    padding: 20px;
+}
 
         .item {
             margin: 15px;
@@ -80,7 +80,6 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 200px;
             text-align: center;
         }
 
@@ -100,15 +99,34 @@
         }
 
         .item-quantity input, .item-quantity button {
-            width: 30px;
             padding: 5px;
             font-size: 16px;
             transition: transform 0.2s;
         }
 
-        .item-quantity button:hover {
-            transform: scale(1.3);
+        .item-quantity button {
+            width: auto;
+            padding: 5px 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            background-color: #f7f7f7;
+            border-radius: 4px;
+            cursor: pointer;
         }
+
+        .item-quantity button:hover {
+            transform: scale(1.1);
+        }
+
+        .item-quantity button:first-child {
+    background-color: #4CAF50; /* Green color for '+' button */
+    float: right;
+}
+
+        .item-quantity button:last-child {
+    background-color: #f44336; /* Red color for '-' button */
+    float: left;
+}
 
         .checkout-screen {
             display: none;
@@ -187,6 +205,13 @@
 <div id="checkoutScreen" class="checkout-screen">
     <span class="close-checkout" onclick="toggleCheckoutScreen()">&times;</span>
     <div id="checkoutItems"></div>
+    
+    <!-- Discount Code Section -->
+    <div>
+        <input type="text" id="discountCode" placeholder="Discount Code">
+        <button onclick="applyDiscount()">Apply Discount</button>
+    </div>
+
     <div class="total-amount">Total: $<span id="checkoutTotal">0</span></div>
     <button class="checkout-button" onclick="checkout()">Checkout</button>
 </div>
@@ -211,16 +236,16 @@
 { title: "Bee Movie DVD", price: 9.99, imgSrc: "https://m.media-amazon.com/images/I/81wQjWIRxLL._AC_UF894,1000_QL80_.jpg", category: "Trending" },
 { title: "Limited Edition KitKat", price: 20, imgSrc: "https://iwholesalecandy.ca/cdn/shop/files/iwholesalecandy-kit-kat-churo.jpg?v=1687553051", category: "Trending" },
 { title: "Kinder Bueno MEGA PACK", price: 65, imgSrc: "https://m.media-amazon.com/images/I/71DX44uh4jL._AC_UF1000,1000_QL80_.jpg", category: "Trending" },
-{ title: "Glycolic Acid by The Ordinary", price: 30.23, imgSrc: "IMAGE", category: "Makeup" },
-{ title: "GIANT Strawberry Plush", price: 50, imgSrc: "IMAGE", category: "Toys" },
-{ title: "Nana Figurine", price: 450, imgSrc: "IMAGE", category: "Decoration" },
-{ title: "Nyx Lip Liner", price: 25, imgSrc: "IMAGE", category: "Makeup" },
-{ title: "Cat Leash", price: 13.99, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Pink JDM Car", price: 38999.99, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Minecraft Bed", price: 600, imgSrc: "IMAGE", category: "Decoration" },
-{ title: "La Roche Posay Sunscreen", imgSrc: "IMAGE", price: 37.95, category: "Makeup" },
-{ title: "Coraline Figurine", price: 55.95, imgSrc: "IMAGE", category: "Toys" },
-{ title: "Yves Rocher Body Soap", price: 30.55, imgSrc: "IMAGE", category: "Makeup" },
+{ title: "Glycolic Acid by The Ordinary", price: 30.23, imgSrc: "https://static.thcdn.com/images/large/original//productimg/1600/1600/14883606-8925089040747964.jpg", category: "Makeup" },
+{ title: "GIANT Strawberry Plush", price: 50, imgSrc: "https://m.media-amazon.com/images/I/614l1Y0tP2L._AC_UF1000,1000_QL80_.jpg", category: "Toys" },
+{ title: "Nana Figurine", price: 450, imgSrc: "https://ae01.alicdn.com/kf/Se8d95dba4fe84e61bd023c9a059362fdU.jpg_640x640Q90.jpg_.webp", category: "Decoration" },
+{ title: "Nyx Lip Liner", price: 25, imgSrc: "https://www.nyxcosmetics.ca/dw/image/v2/AATL_PRD/on/demandware.static/-/Sites-nyx-master-catalog/default/dw32fdcd43/ProductImages/Lips/Slim_Lip_Pencil/Slim_Lip_Pencil/800897108021_slimlippencil_brown_main.jpg", category: "Makeup" },
+{ title: "Cat Harness", price: 13.99, imgSrc: "https://m.media-amazon.com/images/I/71Yl0a8iGzL.jpg", category: "Trending" },
+{ title: "Pink JDM Car", price: 38999.99, imgSrc: "https://i.pinimg.com/originals/78/9b/b1/789bb19eaaa19b9702bb74d0055b36be.jpg", category: "Trending" },
+{ title: "Minecraft Bed", price: 600, imgSrc: "https://static.wikia.nocookie.net/minecraft/images/c/c5/Bed.png/revision/latest?cb=20191103220226", category: "Decoration" },
+{ title: "La Roche Posay Sunscreen", imgSrc: "https://www.laroche-posay.ca/dw/image/v2/AATL_PRD/on/demandware.static/-/Sites-larocheposay-master-catalog/default/dwd17f6e45/2022/3337875709361/lrp-anthelios-ultra-fluid-lotion-face-50ml-3337875709361-00.jpg?sw=790&sh=790&sm=cut&sfrm=jpg&q=70", price: 37.95, category: "Makeup" },
+{ title: "Coraline Figurine", price: 55.95, imgSrc: "https://i5.walmartimages.com/asr/9fdd904c-a02e-4364-9a11-9aa659372466.4a8b02369fcca8a98d8cf83649a87e6e.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Yves Rocher Body Soap", price: 30.55, imgSrc: "https://medias.yvesrocher.ca/medias/FC329.jpg?context=bWFzdGVyfHJvb3R8MTcwNjAwfGltYWdlL2pwZWd8c3lzX21hc3Rlci9yb290L2g3MC9oNTQvOTMwMDIxODkzNzM3NC9GQzMyOS5qcGd8OGE0OTc2NmIyMzk4MTk3MDg4MmFmYTVjNDRlZTQ4N2VmYmEyZDM2M2Q2OWRlMzliZDdmNTJiOTExMzlkNzBmZg&twic=v1/resize=960/background=white", category: "Makeup" },
 { title: "Dove Deodorant", price: 7, imgSrc: "IMAGE", category: "Makeup" },
 { title: "Gold Hoop Earrings", price: 12, imgSrc: "IMAGE", category: "Accessories" },
 { title: "Bed Sheets", price: 30, imgSrc: "IMAGE", category: "Decoration" },
@@ -286,89 +311,131 @@
     { title: "Smartwatch", price: 69.95, imgSrc: "smartwatch.png", category: "Trending" },
     { title: "Canvas Wall Art", price: 39.99, imgSrc: "canvas_wall_art.png", category: "Decoration" },
     { title: "Silver Bracelet", price: 18.99, imgSrc: "silver_bracelet.png", category: "Accessories" }
-
-        // Add more items as needed
     ];
-    let cart = {};
+let cart = {};
+let totalAmount = 0;
+let discountCodes = {
+    "SAVE25": { type: "percent", amount: 25 },
+    "100OFF": { type: "fixed", amount: 100 }
+    // Add more discount codes as needed
+};
 
-    function addToCart(title) {
-        cart[title] = (cart[title] || 0) + 1;
+function addToCart(title) {
+    cart[title] = (cart[title] || 0) + 1;
+    updateCartCount();
+    updateCheckoutItems();
+    updateItemQuantities();
+}
+
+function removeFromCart(title) {
+    if (cart[title]) {
+        cart[title]--;
+        if (cart[title] === 0) {
+            delete cart[title];
+        }
         updateCartCount();
         updateCheckoutItems();
+        updateItemQuantities();
     }
+}
 
-    function removeFromCart(title) {
-        if (cart[title]) {
-            cart[title]--;
-            if (cart[title] === 0) {
-                delete cart[title];
-            }
-            updateCartCount();
-            updateCheckoutItems();
+function updateCartCount() {
+    let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
+    document.getElementById('cartCount').textContent = totalCount;
+}
+
+function updateCheckoutItems() {
+    let checkoutItemsDiv = document.getElementById('checkoutItems');
+    checkoutItemsDiv.innerHTML = '';
+    totalAmount = 0;
+    for (let [title, quantity] of Object.entries(cart)) {
+        let item = items.find(i => i.title === title);
+        let itemTotal = item.price * quantity;
+        totalAmount += itemTotal;
+        checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
+    }
+    document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
+}
+
+function applyDiscount() {
+    let discountCodeInput = document.getElementById('discountCode').value;
+    let discount = discountCodes[discountCodeInput];
+
+    if (discount) {
+        if (discount.type === "percent") {
+            totalAmount *= (1 - discount.amount / 100);
+        } else if (discount.type === "fixed") {
+            totalAmount -= discount.amount;
         }
-    }
 
-    function updateCartCount() {
-        let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
-        document.getElementById('cartCount').textContent = totalCount;
+        totalAmount = Math.max(0, totalAmount); // Prevent negative total
+        document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
+    } else {
+        alert("Invalid discount code.");
     }
+}
 
-    function updateCheckoutItems() {
-        let checkoutItemsDiv = document.getElementById('checkoutItems');
-        checkoutItemsDiv.innerHTML = '';
-        let total = 0;
-        for (let [title, quantity] of Object.entries(cart)) {
-            let item = items.find(i => i.title === title);
-            let itemTotal = item.price * quantity;
-            total += itemTotal;
-            checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
-        }
-        document.getElementById('checkoutTotal').textContent = total.toFixed(2);
-    }
-
-    function toggleCheckoutScreen() {
-        let checkoutScreen = document.getElementById('checkoutScreen');
-        checkoutScreen.classList.toggle('active');
-    }
-
-    function checkout() {
-        alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
-        cart = {};
-        updateCartCount();
-        toggleCheckoutScreen();
-    }
-
-    function openCategory(evt, categoryName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(categoryName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
+function updateItemQuantities() {
     items.forEach(item => {
-        let itemElement = document.createElement('div');
-        itemElement.className = 'item';
-        itemElement.innerHTML = `
-            <img src="${item.imgSrc}" alt="${item.title}">
-            <div class="item-title">${item.title}</div>
-            <div class="item-price">$${item.price.toFixed(2)}</div>
-            <div class="item-quantity">
-                <button onclick="addToCart('${item.title}')">+</button>
-                <input type="number" value="${cart[item.title] || 0}" readonly>
-                <button onclick="removeFromCart('${item.title}')">-</button>
-            </div>
-        `;
-        document.getElementById(item.category).appendChild(itemElement);
+        let input = document.querySelector(`input[data-title="${item.title}"]`);
+        if (input) {
+            input.value = cart[item.title] || 0;
+        }
+    });
+}
+
+function toggleCheckoutScreen() {
+    let checkoutScreen = document.getElementById('checkoutScreen');
+    checkoutScreen.classList.toggle('active');
+}
+
+function checkout() {
+    alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
+    cart = {};
+    updateCartCount();
+    updateItemQuantities();
+    toggleCheckoutScreen();
+}
+
+function openCategory(evt, categoryName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(categoryName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+document.getElementsByClassName("tablinks")[0].click();
+
+    function createItemElements() {
+        items.forEach(item => {
+            let itemElement = document.createElement('div');
+            itemElement.className = 'item';
+            itemElement.innerHTML = `
+                <img src="${item.imgSrc}" alt="${item.title}">
+                <div class="item-title">${item.title}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
+                <div class="item-quantity">
+                    <button onclick="addToCart('${item.title}')">+</button>
+                    <input type="number" value="${cart[item.title] || 0}" readonly data-title="${item.title}">
+                    <button onclick="removeFromCart('${item.title}')">-</button>
+                </div>
+            `;
+            document.getElementById(item.category).appendChild(itemElement);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        createItemElements();
+        document.getElementsByClassName("tablinks")[0].click();
     });
 
-    document.getElementsByClassName("tablinks")[0].click();
 </script>
 </body>
 </html>
