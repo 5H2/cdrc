@@ -4,175 +4,178 @@
     <title>Anazom - The Joke Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            background: linear-gradient(#f4f4f4, #d6d6d6);
-            margin: 0;
-            padding: 0;
-            margin-bottom: 50px;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background: linear-gradient(#f4f4f4, #d6d6d6);
+    margin: 0;
+    padding: 0;
+    margin-bottom: 50px;
+}
 
-        .header-section h1 {
-            padding: 20px;
-            background-color: #43de7b;
-            color: white;
-        }
+.header-section h1 {
+    padding: 20px;
+    background-color: #43de7b;
+    color: white;
+}
 
-        .shopping-cart {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 24px;
-        }
+.shopping-cart {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+}
 
-        #cartCount {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: red;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-size: 14px;
-        }
+#cartCount {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 14px;
+}
 
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
 
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
 
-        .tab button:hover {
-            background-color: #ddd;
-        }
+.tab button:hover {
+    background-color: #ddd;
+}
 
-        .tab button.active {
-            background-color: #ccc;
-        }
+.tab button.active {
+    background-color: #ccc;
+}
 
-        .tabcontent {
+.tabcontent {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust number of items per row */
     gap: 20px;
     padding: 20px;
 }
 
-        .item {
-            margin: 15px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+.item {
+    margin: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
 
-        .item img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 10px;
-        }
+.item img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
 
-        .item-title, .item-price {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+.item-title, .item-price {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-        .item-quantity {
-            margin-top: 10px;
-        }
+.item-quantity {
+    margin-top: 10px;
+}
 
-        .item-quantity input, .item-quantity button {
-            padding: 5px;
-            font-size: 16px;
-            transition: transform 0.2s;
-        }
+.item-quantity input, .item-quantity button {
+    padding: 3px; /* Smaller padding for buttons */
+    font-size: 14px; /* Smaller font size for buttons */
+    transition: transform 0.2s;
+}
 
-        .item-quantity button {
-            width: auto;
-            padding: 5px 10px;
-            margin: 0;
-            border: 1px solid #ccc;
-            background-color: #f7f7f7;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+.item-quantity button {
+    width: auto;
+    padding: 3px 6px; /* Adjusted padding */
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        .item-quantity button:hover {
-            transform: scale(1.1);
-        }
+.item-quantity button:hover {
+    transform: scale(1.1);
+}
 
-        .item-quantity button:first-child {
+.item-quantity button:first-child {
     background-color: #4CAF50; /* Green color for '+' button */
     float: right;
+    color: white;
 }
 
-        .item-quantity button:last-child {
+.item-quantity button:last-child {
     background-color: #f44336; /* Red color for '-' button */
     float: left;
+    color: white;
 }
 
-        .checkout-screen {
-            display: none;
-            position: fixed;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            width: 80%;
-            max-width: 800px;
-        }
+.checkout-screen {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 80%;
+    max-width: 800px;
+}
 
-        .checkout-screen.active {
-            display: block;
-        }
+.checkout-screen.active {
+    display: block;
+}
 
-        .checkout-item {
-            border-bottom: 1px solid #ccc;
-            padding: 10px 0;
-        }
+.checkout-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
 
-        .total-amount {
-            font-size: 18px;
-            margin-top: 20px;
-        }
+.total-amount {
+    font-size: 18px;
+    margin-top: 20px;
+}
 
-        .checkout-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
+.checkout-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
 
-        .close-checkout {
-            cursor: pointer;
-            color: #888;
-            float: right;
-            font-size: 20px;
-        }
+.close-checkout {
+    cursor: pointer;
+    color: #888;
+    float: right;
+    font-size: 20px;
+}
+
     </style>
 </head>
 <body>
@@ -343,17 +346,15 @@
         }
     },
 
-    { title: "Crystal Earrings", price: 15.95, imgSrc: "crystal_earrings.png", category: "Accessories" },
-    { title: "Laptop Backpack", price: 34.99, imgSrc: "laptop_backpack.png", category: "Accessories" },
-    { title: "Digital Alarm Clock", price: 18.95, imgSrc: "digital_alarm_clock.png", category: "Trending" },
-    { title: "Botanical Art Prints (Set of 4)", price: 29.99, imgSrc: "botanical_art_prints.png", category: "Decoration" },
-    { title: "Diamond Bracelet", price: 79.95, imgSrc: "diamond_bracelet.png", category: "Accessories" },
-    { title: "Bluetooth Earphones", price: 29.99, imgSrc: "bluetooth_earphones.png", category: "Trending" },
-    { title: "Velvet Throw Pillow", price: 12.99, imgSrc: "velvet_throw_pillow.png", category: "Decoration" },
-    { title: "Pearl Necklace", price: 24.95, imgSrc: "pearl_necklace.png", category: "Accessories" },
-    { title: "Smartwatch", price: 69.95, imgSrc: "smartwatch.png", category: "Trending" },
-    { title: "Canvas Wall Art", price: 39.99, imgSrc: "canvas_wall_art.png", category: "Decoration" },
-    { title: "Silver Bracelet", price: 18.99, imgSrc: "silver_bracelet.png", category: "Accessories" }
+    { title: "Crystal Earrings", price: 15.95, imgSrc: "https://medicalpiercing.ca/wp-content/uploads/2021/09/orhangen_nickelfri_plast_blomdahl_swarovski_7330981150870_15-0103-3005.jpg", category: "Accessories" },
+    { title: "Laptop Backpack", price: 34.99, imgSrc: "https://www.samsonite.ca/dw/image/v2/BBZB_PRD/on/demandware.static/-/Sites-product-catalog/default/dwa4949140/collections/_samsonite/RosalineECO_D151/500x500/147051-1041_D151_FRONT34.jpg?sw=3000&sh=3000", category: "Accessories" },
+    { title: "Digital Alarm Clock", price: 18.95, imgSrc: "https://m.media-amazon.com/images/I/716tIesCEfL._AC_UF1000,1000_QL80_.jpg", category: "Trending" },
+    { title: "Botanical Art Prints (Set of 4)", price: 29.99, imgSrc: "https://i.etsystatic.com/12324116/r/il/8c7815/4325208654/il_570xN.4325208654_ppzn.jpg", category: "Decoration" },
+    { title: "Diamond Bracelet", price: 79.95, imgSrc: "https://tanysjewellery.com/cdn/shop/products/diamond-tennis-bracelet-in18k-gold-500x500_600x600.png?v=1639005403", category: "Accessories" },
+
+    { title: "Velvet Throw Pillow", price: 12.99, imgSrc: "https://m.media-amazon.com/images/I/61UbUh-AqyL._AC_SL1000_.jpg", category: "Decoration" },
+    { title: "Pearl Necklace Set", price: 24.95, imgSrc: "https://i5.walmartimages.com/asr/858c316e-40aa-4bc0-9f4c-b2616f41e352.2e0d264cccc91c05bccc21b94093324a.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Accessories" },
+    { title: "Smartwatch", price: 69.95, imgSrc: "https://m.media-amazon.com/images/I/71JU-bUt-sL.jpg", category: "Trending" },
     ];
 let cart = {};
 let totalAmount = 0;
