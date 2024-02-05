@@ -205,6 +205,13 @@
 <div id="checkoutScreen" class="checkout-screen">
     <span class="close-checkout" onclick="toggleCheckoutScreen()">&times;</span>
     <div id="checkoutItems"></div>
+    
+    <!-- Discount Code Section -->
+    <div>
+        <input type="text" id="discountCode" placeholder="Discount Code">
+        <button onclick="applyDiscount()">Apply Discount</button>
+    </div>
+
     <div class="total-amount">Total: $<span id="checkoutTotal">0</span></div>
     <button class="checkout-button" onclick="checkout()">Checkout</button>
 </div>
@@ -281,34 +288,61 @@
             pink: "#e86bb8"
         }
     },
+    
+	    {
+        title: "Glorious Model-O Gaming Mouse", 
+        price: 49.95,
+        imgSrc: {
+            black: "https://www.gloriousgaming.com/cdn/shop/products/model-o-wireless-full-size-black-1.webp?v=1676048990",
+            white: "https://www.gloriousgaming.com/cdn/shop/products/model-o-wireless-full-size-white-1.webp?v=1676049015"
+        }, 
+        category: "Trending",
+        colors: {
+            black: "#1c1c1c",
+            white: "#f0f0f0"
+        }
+    },
 
-    { title: "Graphic T-Shirt", price: 19.99, imgSrc: "graphic_tshirt.png", category: "Clothes" },
-    { title: "Desk Organizer", price: 24.95, imgSrc: "desk_organizer.png", category: "Decoration" },
-    { title: "Wireless Earbuds", price: 79.99, imgSrc: "wireless_earbuds.png", category: "Trending" },
-    { title: "Yoga Mat", price: 29.99, imgSrc: "yoga_mat.png", category: "Trending" },
-    { title: "Elegant Watch", price: 89.99, imgSrc: "elegant_watch.png", category: "Accessories" },
-    { title: "Cookware Set", price: 129.95, imgSrc: "cookware_set.png", category: "Trending" },
-    { title: "Plush Teddy Bear", price: 15.99, imgSrc: "plush_teddy_bear.png", category: "Toys" },
-    { title: "Digital Camera", price: 249.99, imgSrc: "digital_camera.png", category: "Accessories" },
-    { title: "Designer Handbag", price: 149.99, imgSrc: "designer_handbag.png", category: "Accessories" },
-    { title: "Hello Kitty Plush", price: 12.99, imgSrc: "hello_kitty_plush.png", category: "Toys" },
-    { title: "Kawaii Stationery Set", price: 9.99, imgSrc: "kawaii_stationery_set.png", category: "Toys" },
-    { title: "Anime Beauty Brushes", price: 18.95, imgSrc: "anime_beauty_brushes.png", category: "Makeup" },
-    { title: "Monster High Doll Set (4pcs)", price: 79.99, imgSrc: "monster_high_dolls_set.png", category: "Toys" },
-    { title: "Kawaii Backpack", price: 24.99, imgSrc: "kawaii_backpack.png", category: "Accessories" },
-    { title: "Cute Makeup Bag", price: 8.99, imgSrc: "cute_makeup_bag.png", category: "Makeup" },
-    { title: "Hello Kitty Earrings", price: 11.95, imgSrc: "hello_kitty_earrings.png", category: "Accessories" },
-    { title: "Kawaii Phone Case", price: 14.99, imgSrc: "kawaii_phone_case.png", category: "Accessories" },
-    { title: "Anime Beauty Palette", price: 24.95, imgSrc: "anime_beauty_palette.png", category: "Makeup" },
-    { title: "Hello Kitty Bracelet", price: 9.99, imgSrc: "hello_kitty_bracelet.png", category: "Accessories" },
-    { title: "Kawaii Plush Keychain", price: 4.99, imgSrc: "kawaii_plush_keychain.png", category: "Toys" },
-    { title: "Anime Beauty Lipstick Set", price: 16.99, imgSrc: "anime_beauty_lipstick_set.png", category: "Makeup" },
-    { title: "Hello Kitty Notebook", price: 6.99, imgSrc: "hello_kitty_notebook.png", category: "Trending" },
+    { title: "Cute Kawaii T-Shirt", price: 19.99, imgSrc: "https://i.etsystatic.com/10370561/r/il/d7f062/3882552903/il_570xN.3882552903_lqjv.jpg", category: "Clothes" },
+    { title: "Desk Organizer", price: 24.95, imgSrc: "https://m.media-amazon.com/images/I/61dyFKhqEnL._AC_UF894,1000_QL80_.jpg", category: "Decoration" },
+    { title: "Wireless Earbuds", price: 79.99, imgSrc: "https://m.media-amazon.com/images/I/51GIwDL-HoL._AC_UF894,1000_QL80_.jpg", category: "Trending" },
+    { title: "Yoga Mat", price: 29.99, imgSrc: "https://m.media-amazon.com/images/I/61FTABGJz3L._AC_SL1500_.jpg", category: "Trending" },
+    { title: "Elegant Watch", price: 89.99, imgSrc: "https://medias.yvesrocher.ca/medias/34388.jpg?context=bWFzdGVyfHJvb3R8MjQxNjA4fGltYWdlL2pwZWd8c3lzX21hc3Rlci9yb290L2gyZS9oNzEvOTIzNDU0NDI2MzE5OC8zNDM4OC5qcGd8ZjllYzM3MzM2MWI5ZTBmODQ2ZGQxODhkNjMyOTUyZjA5NmU0ZGI1OWZjZjBmNDc5ZTI3YjUwOTdkYzAyNjhjMQ&twic=v1/resize=960/background=white", category: "Accessories" },
+    { title: "Cookware Knife Set", price: 129.95, imgSrc: "https://apim.canadiantire.ca/v1/product/api/v1/product/image/1423454p?baseStoreId=CTR&lang=en_CA&subscription-key=c01ef3612328420c9f5cd9277e815a0e&imwidth=640", category: "Trending" },
+    { title: "Plush Teddy Bear", price: 15.99, imgSrc: "https://m.media-amazon.com/images/I/81FefTBtlvL._AC_UF894,1000_QL80_.jpg", category: "Toys" },
+    { title: "Digital Camera", price: 249.99, imgSrc: "https://img.kentfaith.com/cache/catalog/products/us/GW41.0104/GW41.0104-1-518x518.jpg", category: "Accessories" },
+    { title: "Designer Handbag", price: 149.99, imgSrc: "https://i.pinimg.com/736x/c9/e5/66/c9e56698efbdae3ef01e0dd6222e18b6.jpg", category: "Accessories" },
+    { title: "Hello Kitty Plush", price: 12.99, imgSrc: "https://m.media-amazon.com/images/I/71+h6dVnTUL._AC_UF350,350_QL80_.jpg", category: "Toys" },
+    { title: "Sherr 18 Pcs Kawaii Stationery Set Includes 12 Cute Peach Pens Retractable 0.5 mm Gel Ink Pens 4 Peach Fruit Sticky Notes Kawaii Peach Sticker Pink Binder Clips for Office School Stationery Supplies", price: 19.99, imgSrc: "https://m.media-amazon.com/images/I/81wVMG28w3L._AC_UF1000,1000_QL80_.jpg", category: "Toys" },
+    { title: "9 PCS Sailor Moon Makeup Brush Set", price: 18.95, imgSrc: "https://m.media-amazon.com/images/I/71Rv3Sbn6yL._AC_UF1000,1000_QL80_.jpg", category: "Makeup" },
+    
+    { title: "Cute Makeup Bag", price: 8.99, imgSrc: "https://images.ctfassets.net/wlke2cbybljx/2Cv5fhrYzRAy4mvOg2xQ20/00c88ead87b7e5211ff05d8faf575e2a/makeup-bag-front.png?w=500&h=500&fit=fill&fm=jpg&bg=", category: "Makeup" },
+    { title: "Hello Kitty Earrings", price: 8, imgSrc: "https://bratbeadz.ca/cdn/shop/files/IMG-8989_1200x1200.heic?v=1701456645", category: "Accessories" },
+    { title: "Kawaii Phone Case", price: 14.99, imgSrc: "https://m.media-amazon.com/images/I/61SMTAJRiHL._AC_UF894,1000_QL80_.jpg", category: "Accessories" },
+    { title: "Hello Kitty Notebook", price: 6.99, imgSrc: "https://i5.walmartimages.com/asr/e4b54770-3d0f-442e-b907-fbd167272e6b.b96a623e456fc5806467be917e317e80.jpeg?odnHeight=320&odnWidth=320&odnBg=FFFFFF", category: "Trending" },
     
     
-    { title: "Floral Scented Candles (Set of 3)", price: 14.99, imgSrc: "floral_scented_candles.png", category: "Decoration" },
-    { title: "Rose Gold Necklace", price: 19.95, imgSrc: "rose_gold_necklace.png", category: "Accessories" },
-    { title: "Faux Fur Blanket", price: 39.99, imgSrc: "faux_fur_blanket.png", category: "Decoration" },
+    { title: "Floral Scented Candles (Set of 3)", price: 14.99, imgSrc: "https://m.media-amazon.com/images/I/812tVmzUJxL._AC_UF894,1000_QL80_.jpg", category: "Decoration" },
+    { title: "Rose Gold Necklace", price: 19.95, imgSrc: "https://ae01.alicdn.com/kf/S8b32a2fafdc44b51b73bd4fab4061f358/QXTC-Rose-Flower-Pendant-0-56ctw-Full-Moissanite-Necklace-925-Sterling-Silver-Rose-Gold-Jewelry-for.jpg", category: "Accessories" },
+
+
+
+	    {
+        title: "Faux Fur Blanket", 
+        price: 49.95,
+        imgSrc: {
+            gray: "https://m.media-amazon.com/images/I/91PSpt-Pp9L._AC_SL1500_.jpg",
+            white: "https://m.media-amazon.com/images/I/81ueBynmpkL._AC_SL1500_.jpg",
+            brown: "https://m.media-amazon.com/images/I/81QUxLJMD9L._AC_SL1500_.jpg"
+        }, 
+        category: "Decoration",
+        colors: {
+            gray: "#b3b3b3",
+            white: "#ebebeb",
+            brown: "#856749"
+        }
+    },
+
     { title: "Crystal Earrings", price: 15.95, imgSrc: "crystal_earrings.png", category: "Accessories" },
     { title: "Laptop Backpack", price: 34.99, imgSrc: "laptop_backpack.png", category: "Accessories" },
     { title: "Digital Alarm Clock", price: 18.95, imgSrc: "digital_alarm_clock.png", category: "Trending" },
@@ -321,98 +355,136 @@
     { title: "Canvas Wall Art", price: 39.99, imgSrc: "canvas_wall_art.png", category: "Decoration" },
     { title: "Silver Bracelet", price: 18.99, imgSrc: "silver_bracelet.png", category: "Accessories" }
     ];
-    let cart = {};
+let cart = {};
+let totalAmount = 0;
+let discountCodes = {
+    "SAVE25": { type: "percent", amount: 25 },
+    "100OFF": { type: "fixed", amount: 100 }
+    // Add more discount codes as needed
+};
 
-    function addToCart(title) {
-        cart[title] = (cart[title] || 0) + 1;
+function addToCart(title) {
+    cart[title] = (cart[title] || 0) + 1;
+    updateCartCount();
+    updateCheckoutItems();
+    updateItemQuantities();
+}
+
+function removeFromCart(title) {
+    if (cart[title]) {
+        cart[title]--;
+        if (cart[title] === 0) {
+            delete cart[title];
+        }
         updateCartCount();
         updateCheckoutItems();
         updateItemQuantities();
     }
+}
 
-    function removeFromCart(title) {
-        if (cart[title]) {
-            cart[title]--;
-            if (cart[title] === 0) {
-                delete cart[title];
-            }
-            updateCartCount();
-            updateCheckoutItems();
-            updateItemQuantities();
+function updateCartCount() {
+    let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
+    document.getElementById('cartCount').textContent = totalCount;
+}
+
+function updateCheckoutItems() {
+    let checkoutItemsDiv = document.getElementById('checkoutItems');
+    checkoutItemsDiv.innerHTML = '';
+    totalAmount = 0;
+    for (let [title, quantity] of Object.entries(cart)) {
+        let item = items.find(i => i.title === title);
+        let itemTotal = item.price * quantity;
+        totalAmount += itemTotal;
+        checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
+    }
+    document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
+}
+
+function applyDiscount() {
+    let discountCodeInput = document.getElementById('discountCode').value;
+    let discount = discountCodes[discountCodeInput];
+
+    if (discount) {
+        if (discount.type === "percent") {
+            totalAmount *= (1 - discount.amount / 100);
+        } else if (discount.type === "fixed") {
+            totalAmount -= discount.amount;
         }
-    }
 
-    function updateCartCount() {
-        let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
-        document.getElementById('cartCount').textContent = totalCount;
+        totalAmount = Math.max(0, totalAmount); // Prevent negative total
+        document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
+    } else {
+        alert("Invalid discount code.");
     }
+}
 
-    function updateCheckoutItems() {
-        let checkoutItemsDiv = document.getElementById('checkoutItems');
-        checkoutItemsDiv.innerHTML = '';
-        let total = 0;
-        for (let [title, quantity] of Object.entries(cart)) {
-            let item = items.find(i => i.title === title);
-            let itemTotal = item.price * quantity;
-            total += itemTotal;
-            checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
-        }
-        document.getElementById('checkoutTotal').textContent = total.toFixed(2);
-    }
-
-    function updateItemQuantities() {
-        items.forEach(item => {
-            let input = document.querySelector(`input[data-title="${item.title}"]`);
-            if (input) {
-                input.value = cart[item.title] || 0;
-            }
-        });
-    }
-
-    function toggleCheckoutScreen() {
-        let checkoutScreen = document.getElementById('checkoutScreen');
-        checkoutScreen.classList.toggle('active');
-    }
-
-    function checkout() {
-        alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
-        cart = {};
-        updateCartCount();
-        updateItemQuantities();
-        toggleCheckoutScreen();
-    }
-
-    function openCategory(evt, categoryName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(categoryName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
+function updateItemQuantities() {
     items.forEach(item => {
-        let itemElement = document.createElement('div');
-        itemElement.className = 'item';
-        itemElement.innerHTML = `
-            <img src="${item.imgSrc}" alt="${item.title}">
-            <div class="item-title">${item.title}</div>
-            <div class="item-price">$${item.price.toFixed(2)}</div>
-            <div class="item-quantity">
-                <button onclick="addToCart('${item.title}')">+</button>
-                <input type="number" value="${cart[item.title] || 0}" readonly data-title="${item.title}">
-                <button onclick="removeFromCart('${item.title}')">-</button>
-            </div>
-        `;
-        document.getElementById(item.category).appendChild(itemElement);
+        let input = document.querySelector(`input[data-title="${item.title}"]`);
+        if (input) {
+            input.value = cart[item.title] || 0;
+        }
     });
+}
 
-    document.getElementsByClassName("tablinks")[0].click();
+function toggleCheckoutScreen() {
+    let checkoutScreen = document.getElementById('checkoutScreen');
+    checkoutScreen.classList.toggle('active');
+}
+
+function checkout() {
+    alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
+    cart = {};
+    updateCartCount();
+    updateItemQuantities();
+    toggleCheckoutScreen();
+}
+
+function openCategory(evt, categoryName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(categoryName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+function createColorOptions(colors, title) {
+    return Object.entries(colors).map(([color, hex]) => 
+        `<span style="height: 20px; width: 20px; background-color: ${hex}; border-radius: 50%; display: inline-block; cursor: pointer;" onclick="changeColor('${title}', '${color}')"></span>`
+    ).join('');
+}
+
+function changeColor(title, color) {
+    let img = document.getElementById(`img-${title}`);
+    img.src = items.find(item => item.title === title).imgSrc[color];
+}
+
+items.forEach(item => {
+    let itemElement = document.createElement('div');
+    itemElement.className = 'item';
+    let defaultColor = Object.keys(item.colors || {})[0];
+    let defaultImgSrc = item.imgSrc[defaultColor] || item.imgSrc;
+    itemElement.innerHTML = `
+        <img src="${defaultImgSrc}" alt="${item.title}" id="img-${item.title}">
+        <div class="item-title">${item.title}</div>
+        <div class="item-price">$${item.price.toFixed(2)}</div>
+        ${item.colors ? createColorOptions(item.colors, item.title) : ''}
+        <div class="item-quantity">
+            <button onclick="addToCart('${item.title}')">+</button>
+            <input type="number" value="${cart[item.title] || 0}" readonly data-title="${item.title}">
+            <button onclick="removeFromCart('${item.title}')">-</button>
+        </div>
+    `;
+    document.getElementById(item.category).appendChild(itemElement);
+});
+
+document.getElementsByClassName("tablinks")[0].click();
 </script>
 </body>
 </html>
