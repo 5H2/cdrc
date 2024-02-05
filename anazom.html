@@ -205,13 +205,6 @@
 <div id="checkoutScreen" class="checkout-screen">
     <span class="close-checkout" onclick="toggleCheckoutScreen()">&times;</span>
     <div id="checkoutItems"></div>
-    
-    <!-- Discount Code Section -->
-    <div>
-        <input type="text" id="discountCode" placeholder="Discount Code">
-        <button onclick="applyDiscount()">Apply Discount</button>
-    </div>
-
     <div class="total-amount">Total: $<span id="checkoutTotal">0</span></div>
     <button class="checkout-button" onclick="checkout()">Checkout</button>
 </div>
@@ -246,33 +239,49 @@
 { title: "La Roche Posay Sunscreen", imgSrc: "https://www.laroche-posay.ca/dw/image/v2/AATL_PRD/on/demandware.static/-/Sites-larocheposay-master-catalog/default/dwd17f6e45/2022/3337875709361/lrp-anthelios-ultra-fluid-lotion-face-50ml-3337875709361-00.jpg?sw=790&sh=790&sm=cut&sfrm=jpg&q=70", price: 37.95, category: "Makeup" },
 { title: "Coraline Figurine", price: 55.95, imgSrc: "https://i5.walmartimages.com/asr/9fdd904c-a02e-4364-9a11-9aa659372466.4a8b02369fcca8a98d8cf83649a87e6e.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
 { title: "Yves Rocher Body Soap", price: 30.55, imgSrc: "https://medias.yvesrocher.ca/medias/FC329.jpg?context=bWFzdGVyfHJvb3R8MTcwNjAwfGltYWdlL2pwZWd8c3lzX21hc3Rlci9yb290L2g3MC9oNTQvOTMwMDIxODkzNzM3NC9GQzMyOS5qcGd8OGE0OTc2NmIyMzk4MTk3MDg4MmFmYTVjNDRlZTQ4N2VmYmEyZDM2M2Q2OWRlMzliZDdmNTJiOTExMzlkNzBmZg&twic=v1/resize=960/background=white", category: "Makeup" },
-{ title: "Dove Deodorant", price: 7, imgSrc: "IMAGE", category: "Makeup" },
-{ title: "Gold Hoop Earrings", price: 12, imgSrc: "IMAGE", category: "Accessories" },
-{ title: "Bed Sheets", price: 30, imgSrc: "IMAGE", category: "Decoration" },
-{ title: "Vanilla Essential Oil", price: 12.99, imgSrc: "IMAGE", category: "Makeup" }, // Fixed quotation mark here
-{ title: "Burger", price: 1, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Hoodie", price: 23, imgSrc: "IMAGE", category: "Clothes" },
-{ title: "TV", price: 899.99, imgSrc: "IMAGE", category: "Decoration" },
-{ title: "Nana Manga - Whole Collection", price: 350, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Arabic Perfume", price: 99.99, imgSrc: "IMAGE", category: "Makeup" },
-{ title: "Rice 1 Kg Bag", price: 5, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Wingstop Wings", price: 0.37, imgSrc: "IMAGE", category: "Trending" },
-{ title: "Vivienne Westwood Necklace", price: 800, imgSrc: "IMAGE", category: "Accessories" },
-{ title: "Fake Coach Bag", price: 7.99, imgSrc: "IMAGE", category: "Accessories" },
-{ title: "Victoria Secret 'PINK' Yoga Pants", price: 0, imgSrc: "IMAGE", category: "Clothes" },
-{ title: "Polo Pants", price: 16.99, imgSrc: "IMAGE", category: "Clothes" },
-{ title: "Freddy Fazbear Plush", price: 7.55, imgSrc: "IMAGE", category: "Toys" },
-{ title: "Poo", price: 3, imgSrc: "IMAGE", category: "Decoration" },
-{ title: "Rare Cat", price: 3, imgSrc: "IMAGE", category: "Accessories" },
 
 
-    { title: "Leather Wallet", price: 45.99, imgSrc: "leather_wallet.png", category: "Accessories" },
-    { title: "Bluetooth Speaker", price: 65.49, imgSrc: "bluetooth_speaker.png", category: "Trending" },
-    { title: "Designer Sunglasses", price: 129.99, imgSrc: "designer_sunglasses.png", category: "Accessories" },
-    { title: "Gaming Mouse", price: 39.99, imgSrc: "gaming_mouse.png", category: "Trending" },
-    { title: "Smartphone Stand", price: 12.99, imgSrc: "smartphone_stand.png", category: "Trending" },
-    { title: "Candle Set (3pcs)", price: 29.99, imgSrc: "candle_set.png", category: "Decoration" },
-    { title: "Fitness Tracker", price: 49.95, imgSrc: "fitness_tracker.png", category: "Trending" },
+{ title: "Dove Deodorant", price: 7, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/269/668/6000206269668.jpg", category: "Makeup" },
+{ title: "Gold Hoop Earrings", price: 12, imgSrc: "https://pilgrim.ca/cdn/shop/products/pilgrim-sanne-hoops-60-mm-952774.jpg?v=1651157872&width=1100", category: "Accessories" },
+{ title: "Bed Sheets", price: 30, imgSrc: "https://m.media-amazon.com/images/I/611B25E53dL._AC_UF894,1000_QL80_.jpg", category: "Decoration" },
+{ title: "Vanilla Essential Oil", price: 12.99, imgSrc: "https://m.media-amazon.com/images/I/81PQhKJ3NbL.jpg", category: "Makeup" }, // Fixed quotation mark here
+{ title: "Burger", price: 1, imgSrc: "https://t3.ftcdn.net/jpg/06/01/07/12/360_F_601071205_jxLMJzJKNPM1g5ciDuW32Nj8vO5ltNhn.jpg", category: "Trending" },
+{ title: "Hoodie", price: 23, imgSrc: "https://img.abercrombie.com/is/image/anf/KIC_122-3168-1427-170_prod1?policy=product-large", category: "Clothes" },
+{ title: "TV", price: 899.99, imgSrc: "https://i5.walmartimages.ca/images/Enlarge/439/653/6000206439653.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Decoration" },
+{ title: "Nana Manga - Full Collection", price: 350, imgSrc: "https://media.karousell.com/media/photos/products/2016/12/23/nana_manga_by_ai_yazawa__vol_116_1482475967_170e14ba.jpg", category: "Trending" },
+{ title: "Arabic Perfume", price: 99.99, imgSrc: "https://i.etsystatic.com/25447185/r/il/3884aa/4205849241/il_570xN.4205849241_pwuo.jpg", category: "Makeup" },
+{ title: "Rice 1 Kg Bag", price: 5, imgSrc: "https://shop.jillstable.ca/cdn/shop/products/3033_-_1_984x.jpg?v=1590182988", category: "Trending" },
+{ title: "Wingstop Wings", price: 0.37, imgSrc: "https://burgerbeast.com/wp-content/uploads/2023/07/Wing-Stop-Honey-Rub.jpg", category: "Trending" },
+{ title: "Vivienne Westwood Necklace", price: 800, imgSrc: "https://18be6cde.aerocdn.com/image-factory/1b1906f0a14b6ded43b73ed353023a6df4c4f2df~668x799:upscale/images/products/E41nJjiE5qeLEUO7sp94gkgRv0UQObt7ixFme4oM.jpg", category: "Accessories" },
+{ title: "Fake Coach Bag", price: 7.99, imgSrc: "https://balilene.com/cdn/shop/products/Coach-Teri-Shoulder-Bag-In-Signature-Canvas-Khaki-Chalk-Multi-Balilene-depan_800x.png?v=1677560222", category: "Accessories" },
+{ title: "Victoria Secret 'PINK' Yoga Pants", price: 0, imgSrc: "https://i.pinimg.com/736x/c4/47/c0/c447c0524d9ae36037cd9e2a5e6565df.jpg", category: "Clothes" },
+{ title: "Polo Pants", price: 16.99, imgSrc: "https://dimg.dillards.com/is/image/DillardsZoom/mainProduct/polo-ralph-lauren-pony-print-knit-pajama-pants/05144387_zi_cruise_navy.jpg", category: "Clothes" },
+{ title: "Freddy Fazbear Plush", price: 7.55, imgSrc: "https://i5.walmartimages.com/asr/2da4da51-f958-4e7a-8775-99c4f8264001.58d970e761a8170265a7e4e841d5535e.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF", category: "Toys" },
+{ title: "Pou", price: 999, imgSrc: "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/6301822731c35dd378ad6819747fd906.jpg", category: "Decoration" },
+{ title: "Rare Cat Mystery Box", price: 1200, imgSrc: "https://i.pinimg.com/564x/5e/ec/2d/5eec2de3b1064ca89ab790b98fc64fab.jpg", category: "Accessories" },
+
+
+    { title: "Vivienne Westwood Wallet", price: 45.99, imgSrc: "https://cdna.lystit.com/400/500/tr/photos/viviennewestwood/8101bfd2/vivienne-westwood-BLACK-Saffiano-Man-Wallet-With-Coin-Pocket.jpeg", category: "Accessories" },
+    { title: "Bluetooth Speaker Cat Shape", price: 65.49, imgSrc: "https://m.media-amazon.com/images/I/31Vv39A9FIL._AC_UF894,1000_QL80_.jpg", category: "Trending" },
+    { title: "Gaming Mouse", price: 39.99, imgSrc: "https://m.media-amazon.com/images/I/41SlCUyQvQL._AC_UF894,1000_QL80_.jpg", category: "Trending" },
+    { title: "Smartphone Stand", price: 12.99, imgSrc: "https://www.dannycomputers.net/4420-thickbox_default/nulaxy-foldable-tablet-ph.jpg", category: "Trending" },
+    { title: "Candle Set (3pcs)", price: 29.99, imgSrc: "https://i.etsystatic.com/29696027/r/il/f9ea66/4191447409/il_570xN.4191447409_88py.jpg", category: "Decoration" },
+
+
+	    {
+        title: "Fitness Tracker Watch", 
+        price: 49.95,
+        imgSrc: {
+            blue: "https://m.media-amazon.com/images/I/61kRtGBpNEL.jpg",
+            pink: "https://m.media-amazon.com/images/I/611RnBJpZUL.jpg"
+        }, 
+        category: "Trending",
+        colors: {
+            blue: "#302d87",
+            pink: "#e86bb8"
+        }
+    },
+
     { title: "Graphic T-Shirt", price: 19.99, imgSrc: "graphic_tshirt.png", category: "Clothes" },
     { title: "Desk Organizer", price: 24.95, imgSrc: "desk_organizer.png", category: "Decoration" },
     { title: "Wireless Earbuds", price: 79.99, imgSrc: "wireless_earbuds.png", category: "Trending" },
@@ -312,130 +321,98 @@
     { title: "Canvas Wall Art", price: 39.99, imgSrc: "canvas_wall_art.png", category: "Decoration" },
     { title: "Silver Bracelet", price: 18.99, imgSrc: "silver_bracelet.png", category: "Accessories" }
     ];
-let cart = {};
-let totalAmount = 0;
-let discountCodes = {
-    "SAVE25": { type: "percent", amount: 25 },
-    "100OFF": { type: "fixed", amount: 100 }
-    // Add more discount codes as needed
-};
+    let cart = {};
 
-function addToCart(title) {
-    cart[title] = (cart[title] || 0) + 1;
-    updateCartCount();
-    updateCheckoutItems();
-    updateItemQuantities();
-}
-
-function removeFromCart(title) {
-    if (cart[title]) {
-        cart[title]--;
-        if (cart[title] === 0) {
-            delete cart[title];
-        }
+    function addToCart(title) {
+        cart[title] = (cart[title] || 0) + 1;
         updateCartCount();
         updateCheckoutItems();
         updateItemQuantities();
     }
-}
 
-function updateCartCount() {
-    let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
-    document.getElementById('cartCount').textContent = totalCount;
-}
-
-function updateCheckoutItems() {
-    let checkoutItemsDiv = document.getElementById('checkoutItems');
-    checkoutItemsDiv.innerHTML = '';
-    totalAmount = 0;
-    for (let [title, quantity] of Object.entries(cart)) {
-        let item = items.find(i => i.title === title);
-        let itemTotal = item.price * quantity;
-        totalAmount += itemTotal;
-        checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
-    }
-    document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
-}
-
-function applyDiscount() {
-    let discountCodeInput = document.getElementById('discountCode').value;
-    let discount = discountCodes[discountCodeInput];
-
-    if (discount) {
-        if (discount.type === "percent") {
-            totalAmount *= (1 - discount.amount / 100);
-        } else if (discount.type === "fixed") {
-            totalAmount -= discount.amount;
+    function removeFromCart(title) {
+        if (cart[title]) {
+            cart[title]--;
+            if (cart[title] === 0) {
+                delete cart[title];
+            }
+            updateCartCount();
+            updateCheckoutItems();
+            updateItemQuantities();
         }
-
-        totalAmount = Math.max(0, totalAmount); // Prevent negative total
-        document.getElementById('checkoutTotal').textContent = totalAmount.toFixed(2);
-    } else {
-        alert("Invalid discount code.");
     }
-}
 
-function updateItemQuantities() {
-    items.forEach(item => {
-        let input = document.querySelector(`input[data-title="${item.title}"]`);
-        if (input) {
-            input.value = cart[item.title] || 0;
+    function updateCartCount() {
+        let totalCount = Object.values(cart).reduce((acc, cur) => acc + cur, 0);
+        document.getElementById('cartCount').textContent = totalCount;
+    }
+
+    function updateCheckoutItems() {
+        let checkoutItemsDiv = document.getElementById('checkoutItems');
+        checkoutItemsDiv.innerHTML = '';
+        let total = 0;
+        for (let [title, quantity] of Object.entries(cart)) {
+            let item = items.find(i => i.title === title);
+            let itemTotal = item.price * quantity;
+            total += itemTotal;
+            checkoutItemsDiv.innerHTML += `<div class="checkout-item">${quantity} x ${title} - $${itemTotal.toFixed(2)}</div>`;
         }
-    });
-}
-
-function toggleCheckoutScreen() {
-    let checkoutScreen = document.getElementById('checkoutScreen');
-    checkoutScreen.classList.toggle('active');
-}
-
-function checkout() {
-    alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
-    cart = {};
-    updateCartCount();
-    updateItemQuantities();
-    toggleCheckoutScreen();
-}
-
-function openCategory(evt, categoryName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+        document.getElementById('checkoutTotal').textContent = total.toFixed(2);
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(categoryName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
-document.getElementsByClassName("tablinks")[0].click();
-
-    function createItemElements() {
+    function updateItemQuantities() {
         items.forEach(item => {
-            let itemElement = document.createElement('div');
-            itemElement.className = 'item';
-            itemElement.innerHTML = `
-                <img src="${item.imgSrc}" alt="${item.title}">
-                <div class="item-title">${item.title}</div>
-                <div class="item-price">$${item.price.toFixed(2)}</div>
-                <div class="item-quantity">
-                    <button onclick="addToCart('${item.title}')">+</button>
-                    <input type="number" value="${cart[item.title] || 0}" readonly data-title="${item.title}">
-                    <button onclick="removeFromCart('${item.title}')">-</button>
-                </div>
-            `;
-            document.getElementById(item.category).appendChild(itemElement);
+            let input = document.querySelector(`input[data-title="${item.title}"]`);
+            if (input) {
+                input.value = cart[item.title] || 0;
+            }
         });
     }
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-        createItemElements();
-        document.getElementsByClassName("tablinks")[0].click();
+    function toggleCheckoutScreen() {
+        let checkoutScreen = document.getElementById('checkoutScreen');
+        checkoutScreen.classList.toggle('active');
+    }
+
+    function checkout() {
+        alert('Checkout successful. Total paid: $' + document.getElementById('checkoutTotal').textContent);
+        cart = {};
+        updateCartCount();
+        updateItemQuantities();
+        toggleCheckoutScreen();
+    }
+
+    function openCategory(evt, categoryName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(categoryName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    items.forEach(item => {
+        let itemElement = document.createElement('div');
+        itemElement.className = 'item';
+        itemElement.innerHTML = `
+            <img src="${item.imgSrc}" alt="${item.title}">
+            <div class="item-title">${item.title}</div>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
+            <div class="item-quantity">
+                <button onclick="addToCart('${item.title}')">+</button>
+                <input type="number" value="${cart[item.title] || 0}" readonly data-title="${item.title}">
+                <button onclick="removeFromCart('${item.title}')">-</button>
+            </div>
+        `;
+        document.getElementById(item.category).appendChild(itemElement);
     });
 
+    document.getElementsByClassName("tablinks")[0].click();
 </script>
 </body>
 </html>
