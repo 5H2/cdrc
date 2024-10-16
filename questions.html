@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden; /* Prevents body scroll */
+        }
+
+        .container {
+            text-align: center;
+            overflow-y: auto; /* Allows scrolling */
+            max-height: 80vh; /* Limits height of the container */
+            width: 90%; /* Width of the container */
+            border: 1px solid #ccc; /* Border for better visibility */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding inside the container */
+            background-color: #fff; /* White background for the container */
+        }
+
+        .question {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space between elements */
+        }
+
+        .question label {
+            flex-grow: 1; /* Allows text to take remaining space */
+            margin-left: 8px; /* Space between checkbox and question text */
+            display: flex; /* Use flex for aligning elements inside label */
+            align-items: center; /* Center items vertically */
+        }
+
+        .question span {
+            margin-left: 10px; /* Space between question text and emoji */
+            font-size: 20px; /* Emoji size */
+            color: red; /* Emoji color */
+            cursor: pointer; /* Change cursor to pointer for emoji */
+        }
+
+        #addQuestion {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff; /* Blue color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.3s;
+        }
+
+        #addQuestion:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #addQuestion:active {
+            transform: scale(1.1); /* Grow effect on click */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Questions</h1>
+        <div id="checkboxList"></div>
+
+        <input type="text" id="newQuestion" placeholder="Type your question here">
+        <button id="addQuestion">Add</button>
+    </div>
+    <script>
+        const checkboxList = document.getElementById('checkboxList');
+        const newQuestionInput = document.getElementById('newQuestion');
+        const addQuestionButton = document.getElementById('addQuestion');
+
+        // Predefined questions
+        const predefinedQuestions = [
+            "What would you do if you won 10 million dollars in the lottery?",
+            "What would be your ideal superpower?",
+            "Would you rather have the ability to fly or be invisible?",
+            "What is your favorite childhood memory?",
+            "If you could travel anywhere in the world, where would you go?",
+            "What is your biggest fear?",
+            "If you could have dinner with any historical figure, who would it be?",
+            "What is your dream job?",
+            "What is something you've always wanted to try but haven't yet?",
+            "If you could change one thing about the world, what would it be?",
+            "What is your favorite book and why?",
+            "What is your guilty pleasure?",
+            "What is the best piece of advice you've ever received?",
+            "If you could live in any fictional universe, which would it be?",
+            "What is one thing you can't live without?",
+            "What would you do with a day off from work?",
+            "What is your favorite movie genre?",
+            "Do you believe in love at first sight?",
+            "If you could have any animal as a pet, what would it be?",
+            "What is your favorite holiday tradition?",
+            "If you could master any skill instantly, what would it be?",
+            "What is your go-to karaoke song?",
+            "If you could have a conversation with your future self, what would you ask?",
+            "What is your biggest pet peeve?",
+            "What do you enjoy doing in your free time?",
+            "If you could eliminate one food from existence, what would it be?",
+            "What is your favorite way to spend a weekend?",
+            "What is the best gift you've ever received?",
+            "If you could be famous for one thing, what would it be?",
+            "What is something that always makes you laugh?",
+            "If you could live anywhere in the world, where would it be?",
+            "What is your idea of a perfect date?",
+            "What is your favorite way to relax after a long day?",
+            "If you could time travel, would you go to the past or the future?",
+            "What is the most adventurous thing you've ever done?",
+            "What is your favorite season and why?",
+            "If you could change one thing about yourself, what would it be?",
+            "What are three things on your bucket list?",
+            "What is your favorite food and why?",
+            "Do you believe in fate or free will?",
+            "What is the most valuable lesson you've learned in life?",
+            "What is your favorite song and why?",
+            "If you could only eat one meal for the rest of your life, what would it be?",
+            "What is something you are proud of?",
+            "What is your favorite quote or saying?",
+            "If you could be any character from a book or movie, who would you be?",
+            "What is your dream vacation destination?",
+            "What is the best concert you've ever been to?",
+            "If you could have any superpower for a day, what would it be?",
+            "What is your favorite outdoor activity?",
+            "What would you do if you had 24 hours to live?",
+            "What is something you've done that you think everyone should try at least once?",
+            "What do you admire most about your friends?",
+            "What is one thing you wish you could change about your past?",
+            "If you could only watch one TV show for the rest of your life, what would it be?",
+            "What is your favorite family tradition?",
+            "If you had to describe yourself in three words, what would they be?",
+            "What is the craziest thing you've ever done?",
+            "What is your favorite way to express creativity?",
+            "If you could have dinner with any fictional character, who would it be?",
+            "What is your favorite way to celebrate a special occasion?",
+            "If you could choose one song to play every time you entered a room, what would it be?",
+            "What is one thing that always puts you in a good mood?",
+            "If you could speak any language fluently, what would it be?",
+            "What is your favorite thing about your job?",
+            "What is one habit you would like to break?",
+            "If you could switch lives with anyone for a day, who would it be?",
+            "What is your favorite way to stay active?",
+            "What is your biggest dream in life?",
+            "If you could only take three items to a deserted island, what would they be?",
+            "What is your favorite type of dessert?",
+            "What is something you've learned about yourself in the past year?",
+            "If you could have a magical power for one day, what would it be?",
+            "What is your favorite way to spend time with family?",
+            "What is your dream car?",
+            "What is the most important quality you look for in a friend?",
+            "What is your favorite way to unwind after a stressful day?",
+            "If you could relive any day in your life, which would it be?",
+            "What is one thing you would like to be remembered for?",
+            "What is your favorite way to show affection?",
+            "What is your biggest aspiration?",
+            "If you could live in any time period, when would it be?",
+            "What is your favorite thing about being in a relationship?",
+            "What is one goal you want to achieve this year?",
+            "What is something that makes you feel confident?",
+            "If you could go back to school for anything, what would it be?",
+            "What is your favorite part about your personality?",
+            "What is the best compliment you've ever received?",
+            "If you could eliminate one thing from your daily routine, what would it be?",
+            "What is your favorite thing to do on a rainy day?",
+            "If you could have a dinner party with any five people, dead or alive, who would they be?",
+            "What is something that always inspires you?",
+            "If you could have a day to do anything you want, what would it be?",
+            "What is your favorite thing about nature?",
+            "If you could witness any event in history, what would it be?",
+            "What is your biggest source of motivation?",
+            "If you could instantly learn one thing, what would it be?",
+            "What is your favorite childhood game?",
+            "If you could create a new holiday, what would it celebrate?",
+            "What is your favorite way to give back to the community?",
+            "What is your favorite thing about yourself?",
+            "If you could change one thing about your appearance, what would it be?",
+            "What is your favorite way to connect with others?",
+            "If you could be an expert in any field, what would it be?",
+            "What is the most spontaneous thing you've ever done?",
+            "If you could have any job in the world, what would it be?",
+            "What is something you do to take care of yourself?",
+            "If you could have any celebrity as your best friend, who would it be?",
+            "What is your favorite memory of us together?"
+        ];
+
+        // Load existing questions from localStorage
+        const loadQuestions = () => {
+            const questions = JSON.parse(localStorage.getItem('questions')) || [];
+            // Add predefined questions first
+            predefinedQuestions.forEach((question, index) => addQuestionToList({ text: question, checked: false }, index + 1));
+            // Add user-defined questions after
+            questions.forEach((question, index) => addQuestionToList(question, index + predefinedQuestions.length + 1));
+        };
+
+        // Add question to the list
+        const addQuestionToList = (question, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <label>
+                    <input type="checkbox" id="question${index}" ${question.checked ? 'checked' : ''}>
+                    ${index}. ${question.text}
+                </label>
+                <span class="remove-btn" onclick="removeQuestion(${index})">❌</span> <!-- X emoji -->
+            `;
+
+            checkboxList.appendChild(questionDiv);
+
+            // Set up the checkbox state
+            const checkbox = questionDiv.querySelector('input');
+            checkbox.checked = question.checked;
+            checkbox.addEventListener('change', () => {
+                question.checked = checkbox.checked;
+                saveQuestions();
+            });
+        };
+
+        // Save questions to localStorage
+        const saveQuestions = () => {
+            const questions = Array.from(checkboxList.querySelectorAll('.question')).map((questionDiv) => {
+                const checkbox = questionDiv.querySelector('input');
+                return { text: questionDiv.textContent.trim().split('. ')[1], checked: checkbox.checked };
+            });
+            localStorage.setItem('questions', JSON.stringify(questions));
+        };
+
+        // Remove question
+        const removeQuestion = (index) => {
+            const questionDiv = document.getElementById(`question${index}`).parentElement.parentElement;
+            questionDiv.remove();
+            saveQuestions();
+            updateQuestionNumbers();
+        };
+
+        // Update question numbering
+        const updateQuestionNumbers = () => {
+            const questions = checkboxList.querySelectorAll('.question');
+            questions.forEach((questionDiv, index) => {
+                const label = questionDiv.querySelector('label');
+                label.innerHTML = `
+                    <input type="checkbox" id="question${index + 1}">
+                    ${index + 1}. ${label.textContent.split('. ')[1]}
+                `; // Update label with new number
+                const checkbox = questionDiv.querySelector('input');
+                checkbox.id = `question${index + 1}`; // Update checkbox ID
+            });
+            saveQuestions(); // Save updated questions
+        };
+
+        // Add new question
+        addQuestionButton.addEventListener('click', () => {
+            const questionText = newQuestionInput.value.trim();
+            if (questionText) {
+                const currentCount = checkboxList.children.length + 1; // Calculate new index
+                addQuestionToList({ text: questionText, checked: false }, currentCount);
+                newQuestionInput.value = '';
+                saveQuestions();
+            }
+        });
+
+        // Initial load of questions
+        loadQuestions();
+    </script>
+</body>
+</html>
